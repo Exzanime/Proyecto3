@@ -6,6 +6,8 @@ import com.example.eventoService.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 /**
  * Implementacion de la interfaz EventoService
@@ -40,18 +42,18 @@ public class EventoServiceImpl implements EventoService{
 
     @Override
     public DtoEvento getDetalleEvento(Long id) {
-        Evento e = eventoRepository.findById(id).orElse(null);
+        Optional<Evento> e = eventoRepository.findById(id);
         if(e!=null){
-            return DtoEvento.builder()
-                    .fecha(e.getFecha())
-                    .nombre(e.getNombre())
-                    .genero(e.getGenero())
-                    .descripcion(e.getDescripcion())
-                    .recinto(e.getRecinto())
-                    .localidad(e.getLocalidad())
-                    .precioMin(e.getPrecioMin())
-                    .precioMax(e.getPrecioMax())
-                    .build();
+            return e.map(evento -> DtoEvento.builder()
+                    .fecha(evento.getFecha())
+                    .nombre(evento.getNombre())
+                    .genero(evento.getGenero())
+                    .descripcion(evento.getDescripcion())
+                    .recinto(evento.getRecinto())
+                    .localidad(evento.getLocalidad())
+                    .precioMin(evento.getPrecioMin())
+                    .precioMax(evento.getPrecioMax())
+                    .build()).orElse(null);
         }
         return null;
     }

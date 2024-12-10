@@ -91,7 +91,6 @@ public class EventoServiceImplTest {
 
     @Test
     public void testSaveEventoLanzaExcepcionSiExiste() {
-        // Simular que ya existe un evento con el mismo nombre, género y fecha
         when(eventoRepository.findByNombreAndGeneroAndFecha(
                 dtoEvento.getNombre(),
                 dtoEvento.getGenero(),

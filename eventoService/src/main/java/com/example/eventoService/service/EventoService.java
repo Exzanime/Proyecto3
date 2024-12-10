@@ -12,5 +12,5 @@ import com.example.eventoService.entity.Evento;
 public interface EventoService {
 
     DtoEvento saveEvento(DtoEvento dtoEvento);
-
+    DtoEvento getDetalleEvento(Long id);
 }

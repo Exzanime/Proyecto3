@@ -6,6 +6,17 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * Representa un evento con información relevante
+ * <p>
+ * Un objeto de la clase `Evento` contiene todos los detalles sobre un Evento específico,
+ * como su  nombre, descripcion, localidad, género, recinto, fecha y precios
+ * en Norteamérica, Europa, Japón y otros lugares.
+ * </p>
+ * @author Violeta, Denis, Alejandro, Nacho
+ * @version 1.0
+ * @date 2024
+ * */
 @Entity
 @Data
 public class Evento {

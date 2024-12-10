@@ -1,5 +1,6 @@
 package com.example.eventoService.service;
 
+import com.example.eventoService.controller.error.EventoDuplicateExcp;
 import com.example.eventoService.dto.DtoEvento;
 import com.example.eventoService.entity.Evento;
 import com.example.eventoService.repository.EventoRepository;
@@ -23,8 +24,11 @@ public class EventoServiceImpl implements EventoService{
      * @param dtoEvento
      * @return
      */
-    @Override
     public DtoEvento saveEvento(DtoEvento dtoEvento) {
+        Optional<Evento> existingEvento = eventoRepository.findByNombreAndGeneroAndFecha(dtoEvento.getNombre(), dtoEvento.getGenero(), dtoEvento.getFecha());
+        if (existingEvento.isPresent()) {
+            throw new EventoDuplicateExcp("El evento "+dtoEvento.getNombre()+"ya existe");
+        }
         Evento evento = conversionDtoAEvento(dtoEvento);
         Evento eventoGuardado = eventoRepository.save(evento);
         return conversionEventoADto(eventoGuardado);

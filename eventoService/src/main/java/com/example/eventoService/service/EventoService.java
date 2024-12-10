@@ -3,6 +3,8 @@ package com.example.eventoService.service;
 import com.example.eventoService.dto.DtoEvento;
 import com.example.eventoService.entity.Evento;
 
+import java.util.List;
+
 /**
  * Interfaz que define los métodos que se pueden realizar sobre los juegos
  * @autor Violeta,Nacho,Denis, Alejandro
@@ -12,5 +14,5 @@ import com.example.eventoService.entity.Evento;
 public interface EventoService {
 
     DtoEvento saveEvento(DtoEvento dtoEvento);
-
+    List<DtoEvento> listarEventos();
 }

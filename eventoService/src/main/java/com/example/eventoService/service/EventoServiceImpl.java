@@ -45,20 +45,9 @@ public class EventoServiceImpl implements EventoService{
 
     @Override
     public DtoEvento getDetalleEvento(Long id) {
-        Optional<Evento> e = eventoRepository.findById(id);
-        if(e!=null){
-            return e.map(evento -> DtoEvento.builder()
-                    .fecha(evento.getFecha())
-                    .nombre(evento.getNombre())
-                    .genero(evento.getGenero())
-                    .descripcion(evento.getDescripcion())
-                    .recinto(evento.getRecinto())
-                    .localidad(evento.getLocalidad())
-                    .precioMin(evento.getPrecioMin())
-                    .precioMax(evento.getPrecioMax())
-                    .build()).orElse(null);
-        }
-        return null;
+        return eventoRepository.findById(id)
+                .map(this::conversionEventoADto)
+                .orElse(null);
     }
 
     /**

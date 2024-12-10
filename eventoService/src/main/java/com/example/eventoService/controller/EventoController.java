@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/evento")
@@ -24,5 +27,15 @@ public class EventoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se ha encontrado el evento");
         }
         return ResponseEntity.status(HttpStatus.OK).body(eventoService.getDetalleEvento(id));
+    }
+
+    /**
+     * Devuelve todos los eventos existentes en la base de datos
+     * @return Lista de Dto de la entidad Evento
+     */
+    @GetMapping("/eventos")
+    public ResponseEntity<List<DtoEvento>> listarEventos(){
+        List<DtoEvento> listaTodosLosEventos = eventoService.listarEventos();
+        return ResponseEntity.ok(listaTodosLosEventos);
     }
 }

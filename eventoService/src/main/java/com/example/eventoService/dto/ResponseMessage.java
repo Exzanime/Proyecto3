@@ -1,13 +1,29 @@
 package com.example.eventoService.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
+import java.time.LocalDateTime;
+
+/**
+ * Clase genérica para estructurar mensajes de respuesta.
+ * @param <T> Tipo del cuerpo (puede ser nulo para errores).
+ */
+@Data
+@Builder
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class ResponseMessage<T> {
     private String message;
     private String cause;
-    private HttpStatus status;
     private int errorCode;
-    private String date;
+    private HttpStatus status;
+
+    private LocalDateTime date;
 
     private T body;
 
@@ -15,70 +31,12 @@ public class ResponseMessage<T> {
         this.message = message;
         this.cause = cause;
         this.status = status;
-        this.body = body;
         this.errorCode = status.value();
+        this.date = LocalDateTime.now();
+        this.body = body;
     }
+
     public ResponseMessage(String message, String cause, HttpStatus status) {
-        this.message = message;
-        this.cause = cause;
-        this.status = status;
-        this.errorCode = status.value();
-    }
-    public ResponseMessage(String message, String cause, HttpStatus status, String date) {
-        this.message = message;
-        this.cause = cause;
-        this.status = status;
-        this.errorCode = errorCode;
-        this.date = date;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getCause() {
-        return cause;
-    }
-
-    public void setCause(String cause) {
-        this.cause = cause;
-    }
-
-    public HttpStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(HttpStatus status) {
-        this.status = status;
-    }
-
-    public T getBody() {
-        return body;
-    }
-
-    public void setBody(T body) {
-        this.body = body;
-    }
-
-
-    public int getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-
+        this(message, cause, status, null);
     }
 }

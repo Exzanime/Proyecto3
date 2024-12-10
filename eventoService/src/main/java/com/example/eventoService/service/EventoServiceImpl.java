@@ -32,7 +32,9 @@ public class EventoServiceImpl implements EventoService{
         Optional<Evento> e = eventoRepository.findByNombreAndGeneroAndFecha(dtoEvento.getNombre(),dtoEvento.getGenero(),dtoEvento.getFecha());
         if (e != null){
             throw new EventoDuplicadoExcp("Error al crear evento", "El evento "+dtoEvento.getNombre()+" ya existe", HttpStatus.CONFLICT);
+
         }
+
         Evento evento=Evento.builder()
                 .fecha(dtoEvento.getFecha())
                 .nombre(dtoEvento.getNombre())

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+
+
 /**
  * Repositorio de la entidad Evento
  * @autor Violeta,Nacho,Denis, Alejandro
@@ -18,5 +20,6 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 
     Optional<Evento> findByNombreAndGeneroAndFecha(String nombre, String genero, LocalDateTime fecha);
 
+    //boolean existsByNombreAndFecha(String nombre, LocalDateTime fecha);
 
 }

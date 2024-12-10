@@ -1,6 +1,7 @@
 package com.example.usuarioService.dto;
 
 import com.example.usuarioService.entity.Usuario;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ public class DtoUsuario implements Serializable {
     private String nombre;
     private String apellido;
     private String email;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaNacimiento;
 
     public static DtoUsuario of(Usuario usuario) {

@@ -37,4 +37,22 @@ public class EventoServiceImpl implements EventoService{
         eventoRepository.save(evento);
         return dtoEvento;
     }
+
+    @Override
+    public DtoEvento getDetalleEvento(Long id) {
+        Evento e = eventoRepository.findById(id).orElse(null);
+        if(e!=null){
+            return DtoEvento.builder()
+                    .fecha(e.getFecha())
+                    .nombre(e.getNombre())
+                    .genero(e.getGenero())
+                    .descripcion(e.getDescripcion())
+                    .recinto(e.getRecinto())
+                    .localidad(e.getLocalidad())
+                    .precioMin(e.getPrecioMin())
+                    .precioMax(e.getPrecioMax())
+                    .build();
+        }
+        return null;
+    }
 }

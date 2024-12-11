@@ -1,13 +1,25 @@
 package com.example.usuarioService.dto;
 
-import com.example.usuarioService.entity.Usuario;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Builder;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
 
+/**
+ * Representa la información de un usuario.
+ * {@link Data}: Genera automáticamente getters, setters, y otros métodos útiles como {@code toString()}, {@code equals()}, y {@code hashCode()}
+ * {@link Builder}: Permite la construcción de instancias de esta clase utilizando el patrón Builder.
+ * {@link JsonFormat}: Especifica el formato de la fecha para la serialización/deserialización JSON.
+ *
+ * @author denis, violeta, alejandro, nacho
+ * @since 2024-12-10
+ * @version 1.0
+ */
+@Data
+@Builder
 public class DtoUsuario implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id;
@@ -17,57 +29,4 @@ public class DtoUsuario implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaNacimiento;
 
-    public static DtoUsuario of(Usuario usuario) {
-        DtoUsuario dto = new DtoUsuario();
-        dto.setId(usuario.getId());
-        dto.setNombre(usuario.getNombre());
-        dto.setApellido(usuario.getApellido());
-        dto.setEmail(usuario.getEmail());
-        dto.setFechaNacimiento(usuario.getFechaNacimiento());
-        return dto;
-    }
-
-    public static List<DtoUsuario> of(List<Usuario> usuarios) {
-        return usuarios.stream().map(p -> of(p)).collect(Collectors.toList());
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDate getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
 }

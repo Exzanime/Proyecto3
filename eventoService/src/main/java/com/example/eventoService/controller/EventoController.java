@@ -63,4 +63,35 @@ public class EventoController {
         List<DtoEvento> listaTodosLosEventos = eventoService.listarEventos();
         return ResponseEntity.ok(listaTodosLosEventos);
     }
+    @PutMapping("/update/{id}")
+    ResponseEntity<?> updateEvento(@PathVariable Long id, @RequestBody DtoEvento dtoEvento){
+        dtoEvento.setId(id);
+        List<ResponseMessage> errores = eventoService.validate(dtoEvento);
+        if(!errores.isEmpty()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseMessage.builder()
+                    .message("Error en la petición")
+                    .cause("La petición no es válida")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .body(errores)
+                    .build());
+        }
+        if(eventoService.updateEvento(id, dtoEvento)==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseMessage.builder()
+                    .message("Evento no encontrado")
+                    .cause("No se ha encontrado el evento con id: "+id)
+                    .status(HttpStatus.NOT_FOUND)
+                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .build());
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(ResponseMessage.builder()
+                .message("Evento actualizado")
+                .cause("El evento "+dtoEvento.getNombre()+" ha sido actualizado correctamente")
+                .status(HttpStatus.OK)
+                .code(HttpStatus.OK.value())
+                .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                .body(eventoService.updateEvento(id, dtoEvento))
+                .build());
+    }
 }

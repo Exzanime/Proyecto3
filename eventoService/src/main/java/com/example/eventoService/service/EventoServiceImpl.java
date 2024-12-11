@@ -1,6 +1,5 @@
 package com.example.eventoService.service;
 
-import com.example.eventoService.controller.error.EventoDuplicateExcp;
 import com.example.eventoService.dto.DtoEvento;
 import com.example.eventoService.dto.ResponseMessage;
 import com.example.eventoService.entity.Evento;
@@ -32,10 +31,6 @@ public class EventoServiceImpl implements EventoService{
      * @return
      */
     public DtoEvento saveEvento(DtoEvento dtoEvento) {
-        Optional<Evento> existingEvento = eventoRepository.findByNombreAndGeneroAndFecha(dtoEvento.getNombre(), dtoEvento.getGenero(), LocalDate.parse(dtoEvento.getFecha()));
-        if (existingEvento.isPresent()) {
-            throw new EventoDuplicateExcp("El evento "+dtoEvento.getNombre()+" ya existe");
-        }
         Evento evento = conversionDtoAEvento(dtoEvento);
         Evento eventoGuardado = eventoRepository.save(evento);
         return conversionEventoADto(eventoGuardado);
@@ -207,6 +202,16 @@ public class EventoServiceImpl implements EventoService{
             errores.add(ResponseMessage.builder()
                     .message("Precio minimo no puede ser mayor que el precio maximo")
                     .cause("Se ha proporcionado un precio minimo mayor que el precio maximo")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        Optional<Evento> existingEvento = eventoRepository.findByNombreAndGeneroAndFecha(dtoEvento.getNombre(), dtoEvento.getGenero(), LocalDate.parse(dtoEvento.getFecha()));
+        if (existingEvento.isPresent()) {
+            errores.add(ResponseMessage.builder()
+                    .message("Evento duplicado")
+                    .cause("El evento "+dtoEvento.getNombre()+" ya existe")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
                     .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))

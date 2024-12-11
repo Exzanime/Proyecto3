@@ -1,6 +1,5 @@
 package com.example.eventoService;
 
-import com.example.eventoService.controller.error.EventoDuplicateExcp;
 import com.example.eventoService.dto.DtoEvento;
 import com.example.eventoService.entity.Evento;
 import com.example.eventoService.repository.EventoRepository;
@@ -98,8 +97,8 @@ public class EventoServiceImplTest {
                 dtoEvento.getGenero(),
                 LocalDate.parse(dtoEvento.getFecha())))
                 .thenReturn(Optional.of(eventoExistente));
-
-        assertThrows(EventoDuplicateExcp.class, () -> eventoService.saveEvento(dtoEvento));
+        when(eventoRepository.save(any(Evento.class))).thenReturn(eventoExistente);
+        eventoService.saveEvento(dtoEvento);
 
         verify(eventoRepository, times(1)).findByNombreAndGeneroAndFecha(dtoEvento.getNombre(), dtoEvento.getGenero(), LocalDate.parse(dtoEvento.getFecha()));
 

@@ -153,10 +153,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
     @Override
     public boolean isValidateEmail(String email) {
-        if(email.split("@").length == 2 && email.split("@")[1].split("\\.").length == 2){
+        if (email.split("@").length == 2 && email.split("@")[1].split("\\.").length == 2) {
             return true;
         }
         return false;
+    }
     /**
      * @param id
      * @return

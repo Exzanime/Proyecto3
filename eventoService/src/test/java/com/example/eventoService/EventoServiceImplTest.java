@@ -115,7 +115,45 @@ public class EventoServiceImplTest {
 
         verify(eventoRepository, times(1)).findAll();
     }
+    @Test
+    public void comprobarUpdateEvento(){
+        when(eventoRepository.findById(1L)).thenReturn(Optional.of(eventoExistente));
+        when(eventoRepository.save(any(Evento.class))).thenReturn(eventoExistente);
 
+        DtoEvento dtoEvento = DtoEvento.builder()
+                .nombre("Concierto Metal")
+                .genero("Metal")
+                .localidad("Madrid")
+                .recinto("Palacio de Deportes")
+                .descripcion("descripcion")
+                .fecha(String.valueOf(LocalDate.now().plusDays(10)))
+                .precioMin(30.0)
+                .precioMax(100.0)
+                .build();
+
+        DtoEvento result = eventoService.updateEvento(1L, dtoEvento);
+
+        assert(result.getNombre().equals(eventoExistente.getNombre()));
+        assert(result.getGenero().equals(eventoExistente.getGenero()));
+        assert(result.getLocalidad().equals(eventoExistente.getLocalidad()));
+        assert(result.getRecinto().equals(eventoExistente.getRecinto()));
+        assert(result.getPrecioMin() == eventoExistente.getPrecioMin());
+        assert(result.getPrecioMax() == eventoExistente.getPrecioMax());
+    }
+    @Test
+    public void comprobarNoSeDuplicaEvento(){
+        when(eventoRepository.existEvento(
+                dtoEvento.getNombre(),
+                dtoEvento.getGenero(),
+                LocalDate.parse(dtoEvento.getFecha()),
+                dtoEvento.getLocalidad(),
+                dtoEvento.getRecinto(),
+                dtoEvento.getPrecioMin(),
+                dtoEvento.getPrecioMax(),
+                dtoEvento.getDescripcion())).thenReturn(true);
+
+        assertThrows(IllegalArgumentException.class, () -> eventoService.saveEvento(dtoEvento));
+    }
     @Test
     public void listaCorrectaEventosTest(){
         List<Evento> eventos = List.of(

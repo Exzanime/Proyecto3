@@ -35,9 +35,6 @@ public class UsuarioServiceImpl implements UsuarioService {
      */
     @Override
     public DtoUsuario saveUsuario(DtoUsuario dtoUsuario) {
-//        if(usuarioRepository.existsByEmail(dtoUsuario.getEmail())){
-//            throw new DuplicadoException("Email " + dtoUsuario.getEmail() + " ya existe");
-//        }
         Usuario usuario = Usuario.builder()
                 .nombre(dtoUsuario.getNombre())
                 .apellido(dtoUsuario.getApellido())
@@ -134,6 +131,15 @@ public class UsuarioServiceImpl implements UsuarioService {
                     .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
                     .build());
         }
+        if(!isValidateEmail(dtoUsuario.getEmail())){
+            errores.add(ResponseMessage.builder()
+                    .message("Email no válido")
+                    .cause("El email "+dtoUsuario.getEmail()+" no es válido")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .build());
+        }
         if(usuarioRepository.existsByEmail(dtoUsuario.getEmail())){
             errores.add(ResponseMessage.builder()
                     .message("Email duplicado")
@@ -145,7 +151,12 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         return errores;
     }
-
+    @Override
+    public boolean isValidateEmail(String email) {
+        if(email.split("@").length == 2 && email.split("@")[1].split("\\.").length == 2){
+            return true;
+        }
+        return false;
     /**
      * @param id
      * @return
@@ -156,24 +167,6 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .map(this::conversionUsuarioADto)
                 .orElse(null);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * Función reutilizable para convertir una entidad Evento a su forma de DTO
      * @param usuario

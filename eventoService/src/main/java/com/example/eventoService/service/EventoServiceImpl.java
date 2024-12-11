@@ -207,8 +207,7 @@ public class EventoServiceImpl implements EventoService{
                     .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
                     .build());
         }
-        Optional<Evento> existingEvento = eventoRepository.findByNombreAndGeneroAndFecha(dtoEvento.getNombre(), dtoEvento.getGenero(), LocalDate.parse(dtoEvento.getFecha()));
-        if (existingEvento.isPresent()) {
+        if (eventoRepository.existEvento(dtoEvento.getNombre(),dtoEvento.getGenero(), LocalDate.parse(dtoEvento.getFecha()),dtoEvento.getLocalidad(),dtoEvento.getRecinto(),dtoEvento.getPrecioMin(),dtoEvento.getPrecioMax(),dtoEvento.getDescripcion())){
             errores.add(ResponseMessage.builder()
                     .message("Evento duplicado")
                     .cause("El evento "+dtoEvento.getNombre()+" ya existe")
@@ -217,7 +216,33 @@ public class EventoServiceImpl implements EventoService{
                     .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
                     .build());
         }
+        if (dtoEvento.getPrecioMax()<0){
+            errores.add(ResponseMessage.builder()
+                    .message("Precio maximo no puede ser negativo")
+                    .cause("Se ha proporcionado un precio maximo negativo")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        if (dtoEvento.getPrecioMin()<0){
+            errores.add(ResponseMessage.builder()
+                    .message("Precio minimo no puede ser negativo")
+                    .cause("Se ha proporcionado un precio minimo negativo")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
         return errores;
+    }
+
+    @Override
+    public DtoEvento updateEvento(Long id,DtoEvento dtoEvento) {
+        dtoEvento.setId(id);
+        Evento evento = conversionDtoAEvento(dtoEvento);
+        Evento eventoGuardado = eventoRepository.save(evento);
+        return conversionEventoADto(eventoGuardado);
     }
 
     @Override
@@ -245,6 +270,7 @@ public class EventoServiceImpl implements EventoService{
                 .fecha(String.valueOf(evento.getFecha()))
                 .precioMin(evento.getPrecioMin())
                 .precioMax(evento.getPrecioMax())
+                .id(evento.getId())
                 .build();
     }
 
@@ -258,6 +284,7 @@ public class EventoServiceImpl implements EventoService{
             throw new IllegalArgumentException("El DTO no puede ser un null.");
         }
         return Evento.builder()
+                .id(dto.getId())
                 .nombre(dto.getNombre())
                 .descripcion(dto.getDescripcion())
                 .genero(dto.getGenero())

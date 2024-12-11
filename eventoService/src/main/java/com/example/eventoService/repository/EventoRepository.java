@@ -2,6 +2,7 @@ package com.example.eventoService.repository;
 
 import com.example.eventoService.entity.Evento;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -18,4 +19,6 @@ import java.util.Optional;
 public interface EventoRepository extends JpaRepository<Evento, Long> {
 
     Optional<Evento> findByNombreAndGeneroAndFecha(String nombre, String genero, LocalDate fecha);
+    @Query("SELECT CASE WHEN COUNT(e) > 0 THEN TRUE ELSE FALSE END FROM Evento e WHERE e.nombre = ?1 AND e.genero = ?2 AND e.fecha = ?3 AND e.localidad = ?4 AND e.recinto = ?5 AND e.precioMin = ?6 AND e.precioMax = ?7 AND e.descripcion = ?8")
+    boolean existEvento (String nombre, String genero, LocalDate fecha, String localidad, String recinto, double precioMin, double precioMax, String descripcion);
 }

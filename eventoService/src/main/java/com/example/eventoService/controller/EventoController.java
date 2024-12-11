@@ -63,4 +63,27 @@ public class EventoController {
         List<DtoEvento> listaTodosLosEventos = eventoService.listarEventos();
         return ResponseEntity.ok(listaTodosLosEventos);
     }
+
+    @PutMapping("/update/{id}")
+    ResponseEntity<?> addEvento(@RequestBody DtoEvento dtoEvento, @PathVariable Long id){
+        List<ResponseMessage> errores = eventoService.validate(dtoEvento);
+        if(!errores.isEmpty()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseMessage.builder()
+                    .message("Error en la petición")
+                    .cause("La petición no es válida")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .body(errores)
+                    .build());
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(ResponseMessage.builder()
+                .message("Evento actualizado")
+                .cause("El evento "+dtoEvento.getNombre()+" ha sido actualizado correctamente")
+                .status(HttpStatus.CREATED)
+                .code(HttpStatus.CREATED.value())
+                .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                .body(eventoService.saveEvento(dtoEvento))
+                .build());
+    }
 }

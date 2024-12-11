@@ -17,5 +17,6 @@ public interface EventoService {
     DtoEvento saveEvento(DtoEvento dtoEvento);
     DtoEvento getDetalleEvento(Long id);
     List<DtoEvento> listarEventos();
+    void deleteById(Long id);
     List<ResponseMessage> validate(DtoEvento dtoEvento);
 }

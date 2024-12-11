@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -150,12 +151,53 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         return errores;
     }
-
     @Override
     public boolean isValidateEmail(String email) {
         if(email.split("@").length == 2 && email.split("@")[1].split("\\.").length == 2){
             return true;
         }
         return false;
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public DtoUsuario getDetalleUsuario(Long id) {
+        return usuarioRepository.findById(id)
+                .map(this::conversionUsuarioADto)
+                .orElse(null);
+    }
+    /**
+     * Función reutilizable para convertir una entidad Evento a su forma de DTO
+     * @param usuario
+     * @return Evento convertido a EventoDto
+     */
+    private DtoUsuario conversionUsuarioADto(Usuario usuario) {
+        if (usuario == null) {
+            throw new IllegalArgumentException("La entidad no puede ser un null.");
+        }
+        return DtoUsuario.builder()
+                .nombre(usuario.getNombre())
+                .apellido(usuario.getApellido())
+                .fechaNacimiento(usuario.getFechaNacimiento())
+                .email(usuario.getEmail())
+                .build();
+    }
+
+    /**
+     * Función reutilizable para convertir un EventoDto a su forma de entidad, Evento
+     * @param dto
+     * @return EventoDto convertido a Evento
+     */
+    private Usuario conversionDtoAEvento(DtoUsuario dto) {
+        if (dto == null) {
+            throw new IllegalArgumentException("El DTO no puede ser un null.");
+        }
+        return Usuario.builder()
+                .nombre(dto.getNombre())
+                .apellido(dto.getApellido())
+                .fechaNacimiento(dto.getFechaNacimiento())
+                .email(dto.getEmail())
+                .build();
     }
 }

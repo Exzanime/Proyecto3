@@ -19,4 +19,5 @@ public interface UsuarioService {
     public DtoUsuario saveUsuario(DtoUsuario dtoUsuario);
     public List<ResponseMessage> validate(DtoUsuario dtoUsuario);
     public boolean isValidateEmail(String email);
+    DtoUsuario getDetalleUsuario(Long id);
 }

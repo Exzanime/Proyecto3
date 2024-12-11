@@ -92,6 +92,7 @@ public class EventoController {
                 .code(HttpStatus.OK.value())
                 .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
                 .body(eventoService.updateEvento(id, dtoEvento))
+
                 .build());
     }
 }

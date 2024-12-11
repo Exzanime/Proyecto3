@@ -7,6 +7,7 @@ import com.example.eventoService.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -47,6 +48,17 @@ public class EventoServiceImpl implements EventoService{
                 .stream()
                 .map(this::conversionEventoADto)
                 .toList();
+    }
+
+    /**
+     * Elimina un evento almacenado en la capa repositorio encontrándolo
+     * por su identificador
+     * @param id Long autoincremental que se genera al crear los eventos
+     */
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        eventoRepository.deleteById(id);
     }
 
     @Override

@@ -18,6 +18,7 @@ public interface EventoService {
     DtoEvento saveEvento(DtoEvento dtoEvento);
     DtoEvento getDetalleEvento(Long id);
     List<DtoEvento> listarEventos();
+    void deleteById(Long id);
     List<ResponseMessage> validate(DtoEvento dtoEvento);
     DtoEvento updateEvento(Long id,DtoEvento dtoEvento);
     List<DtoEvento> findByNombre(String nombre);

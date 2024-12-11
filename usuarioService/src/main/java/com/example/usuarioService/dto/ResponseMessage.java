@@ -1,4 +1,4 @@
-package com.example.eventoService.dto;
+package com.example.usuarioService.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

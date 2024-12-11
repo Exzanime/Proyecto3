@@ -21,8 +21,25 @@ public class EventoController {
 
     @PostMapping("/registro")
     ResponseEntity<?> addEvento(@RequestBody DtoEvento dtoEvento){
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(eventoService.saveEvento(dtoEvento));
+        List<ResponseMessage> errores = eventoService.validate(dtoEvento);
+        if(!errores.isEmpty()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseMessage.builder()
+                    .message("Error en la petición")
+                    .cause("La petición no es válida")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .body(errores)
+                    .build());
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(ResponseMessage.builder()
+                .message("Evento creado")
+                .cause("El evento "+dtoEvento.getNombre()+" ha sido creado correctamente")
+                .status(HttpStatus.CREATED)
+                .code(HttpStatus.CREATED.value())
+                .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                .body(eventoService.saveEvento(dtoEvento))
+                .build());
     }
     @GetMapping("/details/{id}")
     ResponseEntity<?> getDetalles(@PathVariable Long id){

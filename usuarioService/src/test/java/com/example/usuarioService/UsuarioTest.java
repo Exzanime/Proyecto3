@@ -2,7 +2,7 @@ package com.example.usuarioService;
 
 import com.example.usuarioService.dto.DtoUsuario;
 import com.example.usuarioService.entity.Usuario;
-import com.example.usuarioService.exception.DuplicadoException;
+import com.example.usuarioService.errors.DuplicadoException;
 import com.example.usuarioService.repository.UsuarioRepository;
 import com.example.usuarioService.service.UsuarioServiceImpl;
 import org.junit.jupiter.api.BeforeEach;

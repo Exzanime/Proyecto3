@@ -2,13 +2,17 @@ package com.example.eventoService.service;
 
 import com.example.eventoService.controller.error.EventoDuplicateExcp;
 import com.example.eventoService.dto.DtoEvento;
+import com.example.eventoService.dto.ResponseMessage;
 import com.example.eventoService.entity.Evento;
 import com.example.eventoService.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
 
@@ -30,7 +34,7 @@ public class EventoServiceImpl implements EventoService{
     public DtoEvento saveEvento(DtoEvento dtoEvento) {
         Optional<Evento> existingEvento = eventoRepository.findByNombreAndGeneroAndFecha(dtoEvento.getNombre(), dtoEvento.getGenero(), LocalDate.parse(dtoEvento.getFecha()));
         if (existingEvento.isPresent()) {
-            throw new EventoDuplicateExcp("El evento "+dtoEvento.getNombre()+"ya existe");
+            throw new EventoDuplicateExcp("El evento "+dtoEvento.getNombre()+" ya existe");
         }
         Evento evento = conversionDtoAEvento(dtoEvento);
         Evento eventoGuardado = eventoRepository.save(evento);
@@ -48,6 +52,167 @@ public class EventoServiceImpl implements EventoService{
                 .stream()
                 .map(this::conversionEventoADto)
                 .toList();
+    }
+
+    @Override
+    public List<ResponseMessage> validate(DtoEvento dtoEvento) {
+        List<ResponseMessage> errores = new ArrayList<>();
+        if(dtoEvento == null){
+            errores.add(ResponseMessage.builder()
+                    .message("Evento no puede ser null")
+                    .cause("Se ha proporcionado un evento null")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+            return errores;
+        }
+        if(dtoEvento.getGenero()==""&&dtoEvento.getNombre()==""&&dtoEvento.getFecha()==""&&dtoEvento.getLocalidad()==""&&dtoEvento.getRecinto()==""&&dtoEvento.getDescripcion()==""&&dtoEvento.getPrecioMin()==0.0&&dtoEvento.getPrecioMax()==0.0){
+            errores.add(ResponseMessage.builder()
+                    .message("Evento no puede estar vacio")
+                    .cause("Se ha proporcionado un evento vacio")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+            return errores;
+        }
+        if (dtoEvento.getGenero()==null) {
+            errores.add(ResponseMessage.builder()
+                    .message("Genero no puede ser nulo")
+                    .cause("No se ha proporcionado un genero")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        if (dtoEvento.getGenero()=="") {
+            errores.add(ResponseMessage.builder()
+                    .message("Genero no puede estar vacio")
+                    .cause("Se ha proporcionado un genero vacio")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        if (dtoEvento.getDescripcion()=="") {
+            errores.add(ResponseMessage.builder()
+                    .message("Descripcion no puede estar vacio")
+                    .cause("Se ha proporcionado una descripcion vacia")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        if (dtoEvento.getDescripcion()==null) {
+            errores.add(ResponseMessage.builder()
+                    .message("Descripcion no puede ser nulo")
+                    .cause("No se ha proporcionado una descripcion")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        if (dtoEvento.getFecha()=="") {
+            errores.add(ResponseMessage.builder()
+                    .message("Fecha no puede estar vacio")
+                    .cause("Se ha proporcionado una fecha vacia")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        if (dtoEvento.getFecha()==null) {
+            errores.add(ResponseMessage.builder()
+                    .message("Fecha no puede ser nulo")
+                    .cause("No se ha proporcionado una fecha")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        if (dtoEvento.getLocalidad()=="") {
+            errores.add(ResponseMessage.builder()
+                    .message("Localidad no puede estar vacio")
+                    .cause("Se ha proporcionado una localidad vacia")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        if (dtoEvento.getLocalidad()==null) {
+            errores.add(ResponseMessage.builder()
+                    .message("Localidad no puede ser nulo")
+                    .cause("No se ha proporcionado una localidad")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        if (dtoEvento.getNombre()=="") {
+            errores.add(ResponseMessage.builder()
+                    .message("Nombre no puede estar vacio")
+                    .cause("Se ha proporcionado un nombre vacio")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        if (dtoEvento.getNombre()==null) {
+            errores.add(ResponseMessage.builder()
+                    .message("Nombre no puede ser nulo")
+                    .cause("No se ha proporcionado un nombre")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        if (dtoEvento.getRecinto()=="") {
+            errores.add(ResponseMessage.builder()
+                    .message("Recinto no puede estar vacio")
+                    .cause("Se ha proporcionado un recinto vacio")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        if (dtoEvento.getRecinto()==null) {
+            errores.add(ResponseMessage.builder()
+                    .message("Recinto no puede ser nulo")
+                    .cause("No se ha proporcionado un recinto")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        if (dtoEvento.getPrecioMin() == 0.0) {
+            errores.add(ResponseMessage.builder()
+                    .message("Precio minimo no puede ser 0")
+                    .cause("Se ha proporcionado un precio minimo vacio")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        if (dtoEvento.getPrecioMax() == 0.0) {
+            errores.add(ResponseMessage.builder()
+                    .message("Precio maximo no puede ser 0")
+                    .cause("Se ha proporcionado un precio maximo vacio")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        if (dtoEvento.getPrecioMin() > dtoEvento.getPrecioMax()) {
+            errores.add(ResponseMessage.builder()
+                    .message("Precio minimo no puede ser mayor que el precio maximo")
+                    .cause("Se ha proporcionado un precio minimo mayor que el precio maximo")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        return errores;
     }
 
     @Override

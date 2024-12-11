@@ -1,4 +1,4 @@
-package com.example.usuarioService.exception;
+package com.example.usuarioService.errors;
 
 /**
  * Excepcion personalizada que se lanza cuando se intenta registrar un objeto que ya existe

@@ -1,7 +1,10 @@
 package com.example.usuarioService.service;
 
 import com.example.usuarioService.dto.DtoUsuario;
+import com.example.usuarioService.dto.ResponseMessage;
 import com.example.usuarioService.entity.Usuario;
+
+import java.util.List;
 
 /**
  * Servicio para gestionar las operaciones relacionadas con usuarios.
@@ -14,4 +17,5 @@ import com.example.usuarioService.entity.Usuario;
  */
 public interface UsuarioService {
     public DtoUsuario saveUsuario(DtoUsuario dtoUsuario);
+    public List<ResponseMessage> validate(DtoUsuario dtoUsuario);
 }

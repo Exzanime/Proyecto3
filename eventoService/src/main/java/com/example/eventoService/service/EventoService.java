@@ -1,6 +1,7 @@
 package com.example.eventoService.service;
 
 import com.example.eventoService.dto.DtoEvento;
+import com.example.eventoService.dto.ResponseMessage;
 import com.example.eventoService.entity.Evento;
 
 import java.util.List;
@@ -16,4 +17,5 @@ public interface EventoService {
     DtoEvento saveEvento(DtoEvento dtoEvento);
     DtoEvento getDetalleEvento(Long id);
     List<DtoEvento> listarEventos();
+    List<ResponseMessage> validate(DtoEvento dtoEvento);
 }

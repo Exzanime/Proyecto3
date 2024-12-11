@@ -1,6 +1,8 @@
 package com.example.usuarioService.controller;
 
+import java.time.LocalDateTime;
 import com.example.usuarioService.dto.DtoUsuario;
+import com.example.usuarioService.dto.ResponseMessage;
 import com.example.usuarioService.entity.Usuario;
 import com.example.usuarioService.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  * Controlador REST para gestionar las operaciones relacionadas con los usuarios
@@ -32,6 +37,25 @@ public class UsuarioController {
      */
     @PostMapping("/registro")
     ResponseEntity<?> registrarUsuario(@RequestBody DtoUsuario dtoUsuario) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.saveUsuario(dtoUsuario));
+        List<ResponseMessage> errores = usuarioService.validate(dtoUsuario);
+        if (!errores.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseMessage.builder()
+                    .message("Error en la petición")
+                    .cause("La petición no es válida")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .body(errores)
+                    .build());
+        }else {
+            return ResponseEntity.status(HttpStatus.CREATED).body(ResponseMessage.builder()
+                    .message("Usuario creado")
+                    .cause("El usuario "+dtoUsuario.getNombre()+" ha sido creado correctamente")
+                    .status(HttpStatus.CREATED)
+                    .code(HttpStatus.CREATED.value())
+                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .body(usuarioService.saveUsuario(dtoUsuario))
+                    .build());
+        }
     }
 }

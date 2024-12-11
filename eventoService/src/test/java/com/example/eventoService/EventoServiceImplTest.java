@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -39,7 +40,7 @@ public class EventoServiceImplTest {
                 .localidad("Madrid")
                 .recinto("Palacio de Deportes")
                 .descripcion("descripcion")
-                .fecha(LocalDateTime.now().plusDays(10))
+                .fecha(String.valueOf(LocalDateTime.now().plusDays(10)))
                 .precioMin(30.0)
                 .precioMax(100.0)
                 .build();
@@ -50,7 +51,7 @@ public class EventoServiceImplTest {
                 .localidad("Madrid")
                 .recinto("Palacio de Deportes")
                 .descripcion("descripcion")
-                .fecha(dtoEvento.getFecha())
+                .fecha(LocalDate.parse(dtoEvento.getFecha()))
                 .precioMin(30.0)
                 .precioMax(100.0)
                 .build();
@@ -70,7 +71,7 @@ public class EventoServiceImplTest {
                 .localidad("Madrid")
                 .recinto("Palacio de Deportes")
                 .descripcion("descripcion")
-                .fecha(LocalDateTime.now().plusDays(10))
+                .fecha(LocalDate.from(LocalDateTime.now().plusDays(10)))
                 .precioMin(30.0)
                 .precioMax(100.0)
                 .build();
@@ -94,12 +95,12 @@ public class EventoServiceImplTest {
         when(eventoRepository.findByNombreAndGeneroAndFecha(
                 dtoEvento.getNombre(),
                 dtoEvento.getGenero(),
-                dtoEvento.getFecha()))
+                LocalDate.parse(dtoEvento.getFecha())))
                 .thenReturn(Optional.of(eventoExistente));
 
         assertThrows(EventoDuplicateExcp.class, () -> eventoService.saveEvento(dtoEvento));
 
-        verify(eventoRepository, times(1)).findByNombreAndGeneroAndFecha(dtoEvento.getNombre(), dtoEvento.getGenero(), dtoEvento.getFecha());
+        verify(eventoRepository, times(1)).findByNombreAndGeneroAndFecha(dtoEvento.getNombre(), dtoEvento.getGenero(), LocalDate.parse(dtoEvento.getFecha()));
 
         verify(eventoRepository, never()).save(any(Evento.class));
     }

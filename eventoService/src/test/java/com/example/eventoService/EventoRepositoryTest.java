@@ -4,12 +4,15 @@ import com.example.eventoService.entity.Evento;
 import com.example.eventoService.repository.EventoRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SpringBootTest
 public class EventoRepositoryTest {
     @Autowired
     private EventoRepository eventoRepository;
@@ -23,7 +26,7 @@ public class EventoRepositoryTest {
                 .localidad("Barcelona")
                 .recinto("Estadio Olímpico")
                 .descripcion("Un gran concierto de rock")
-                .fecha(LocalDateTime.now().plusDays(5))
+                .fecha(LocalDate.now().plusDays(5))
                 .precioMin(50.0)
                 .precioMax(150.0)
                 .build();

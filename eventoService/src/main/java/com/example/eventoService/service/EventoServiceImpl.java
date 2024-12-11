@@ -6,6 +6,9 @@ import com.example.eventoService.entity.Evento;
 import com.example.eventoService.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.List;
 
@@ -25,7 +28,7 @@ public class EventoServiceImpl implements EventoService{
      * @return
      */
     public DtoEvento saveEvento(DtoEvento dtoEvento) {
-        Optional<Evento> existingEvento = eventoRepository.findByNombreAndGeneroAndFecha(dtoEvento.getNombre(), dtoEvento.getGenero(), dtoEvento.getFecha());
+        Optional<Evento> existingEvento = eventoRepository.findByNombreAndGeneroAndFecha(dtoEvento.getNombre(), dtoEvento.getGenero(), LocalDate.parse(dtoEvento.getFecha()));
         if (existingEvento.isPresent()) {
             throw new EventoDuplicateExcp("El evento "+dtoEvento.getNombre()+"ya existe");
         }
@@ -69,7 +72,7 @@ public class EventoServiceImpl implements EventoService{
                 .genero(evento.getGenero())
                 .localidad(evento.getLocalidad())
                 .recinto(evento.getRecinto())
-                .fecha(evento.getFecha())
+                .fecha(String.valueOf(evento.getFecha()))
                 .precioMin(evento.getPrecioMin())
                 .precioMax(evento.getPrecioMax())
                 .build();
@@ -90,7 +93,7 @@ public class EventoServiceImpl implements EventoService{
                 .genero(dto.getGenero())
                 .localidad(dto.getLocalidad())
                 .recinto(dto.getRecinto())
-                .fecha(dto.getFecha())
+                .fecha(LocalDate.parse(dto.getFecha()))
                 .precioMin(dto.getPrecioMin())
                 .precioMax(dto.getPrecioMax())
                 .build();

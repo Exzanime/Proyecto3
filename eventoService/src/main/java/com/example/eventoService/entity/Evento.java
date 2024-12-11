@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -47,7 +48,7 @@ public class Evento {
     String recinto;
 
     @Column(nullable = false)
-    LocalDateTime fecha;
+    LocalDate fecha;
 
     @Column(nullable = false)
     double precioMin;

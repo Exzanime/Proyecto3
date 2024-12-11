@@ -20,7 +20,7 @@ public class DtoEvento {
 
     String recinto;
 
-    LocalDateTime fecha;
+    String fecha;
 
     double precioMin;
 

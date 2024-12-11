@@ -5,6 +5,7 @@ import com.example.eventoService.dto.ResponseMessage;
 import com.example.eventoService.entity.Evento;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Interfaz que define los métodos que se pueden realizar sobre los juegos
@@ -19,4 +20,5 @@ public interface EventoService {
     List<DtoEvento> listarEventos();
     List<ResponseMessage> validate(DtoEvento dtoEvento);
     DtoEvento updateEvento(Long id,DtoEvento dtoEvento);
+    List<DtoEvento> findByNombre(String nombre);
 }

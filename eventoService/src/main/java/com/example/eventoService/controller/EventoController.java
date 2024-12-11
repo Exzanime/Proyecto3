@@ -95,4 +95,18 @@ public class EventoController {
 
                 .build());
     }
+
+    @GetMapping("/name/{nombre}")
+    public ResponseEntity<?> getEventoByName(@PathVariable String nombre){
+        if(eventoService.findByNombre(nombre).isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseMessage.builder()
+                    .message("Evento no encontrado")
+                    .cause("No se encontro un evento con el nombre: "+ nombre)
+                    .status(HttpStatus.NOT_FOUND)
+                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .build()
+            );
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(eventoService.findByNombre(nombre));
+    }
 }

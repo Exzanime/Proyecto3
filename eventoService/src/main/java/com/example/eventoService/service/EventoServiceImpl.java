@@ -296,4 +296,16 @@ public class EventoServiceImpl implements EventoService{
                 .build();
     }
 
+    /**
+     * Busca un evento por su nombre y lo convierte a un DtoEvento
+     * @param nombre el nombre del evento a buscar
+     * @return DtoEvento correspondiente si se encuentra, o null si no
+     */
+    @Override
+    public List<DtoEvento> findByNombre(String nombre) {
+        return eventoRepository.findByNombre(nombre)
+                .stream()
+                .map(this::conversionEventoADto)
+                .toList();
+    }
 }

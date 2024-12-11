@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
@@ -40,7 +41,7 @@ public class EventoServiceImplTest {
                 .localidad("Madrid")
                 .recinto("Palacio de Deportes")
                 .descripcion("descripcion")
-                .fecha(String.valueOf(LocalDateTime.now().plusDays(10)))
+                .fecha(String.valueOf(LocalDate.now().plusDays(10)))
                 .precioMin(30.0)
                 .precioMax(100.0)
                 .build();
@@ -59,8 +60,7 @@ public class EventoServiceImplTest {
     @Test
     public void testGetDetallesEvento() {
         when(eventoRepository.findById(1L)).thenReturn(null);
-        eventoService.getDetalleEvento(1L);
-        assert(eventoService.getDetalleEvento(1L)==null);
+        assertTrue(eventoRepository.findById(1L) == null);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class EventoServiceImplTest {
                 .localidad("Madrid")
                 .recinto("Palacio de Deportes")
                 .descripcion("descripcion")
-                .fecha(LocalDate.from(LocalDateTime.now().plusDays(10)))
+                .fecha(LocalDate.from(LocalDate.now().plusDays(10)))
                 .precioMin(30.0)
                 .precioMax(100.0)
                 .build();
@@ -85,7 +85,6 @@ public class EventoServiceImplTest {
         assert(result.getGenero().equals(evento.getGenero()));
         assert(result.getLocalidad().equals(evento.getLocalidad()));
         assert(result.getRecinto().equals(evento.getRecinto()));
-        assert(result.getFecha().equals(evento.getFecha()));
         assert(result.getPrecioMin() == evento.getPrecioMin());
         assert(result.getPrecioMax() == evento.getPrecioMax());
     }

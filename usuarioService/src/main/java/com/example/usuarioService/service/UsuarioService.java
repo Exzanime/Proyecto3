@@ -18,4 +18,6 @@ import java.util.List;
 public interface UsuarioService {
     public DtoUsuario saveUsuario(DtoUsuario dtoUsuario);
     public List<ResponseMessage> validate(DtoUsuario dtoUsuario);
+
+    DtoUsuario getDetalleUsuario(Long id);
 }

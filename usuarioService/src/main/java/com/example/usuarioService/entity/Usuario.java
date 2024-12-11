@@ -1,8 +1,10 @@
 package com.example.usuarioService.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -19,18 +21,20 @@ import java.time.LocalDate;
 @Entity
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     @Column(nullable = false)
-    String nombre;
+    private String nombre;
     @Column(nullable = false)
-    String apellido;
+    private String apellido;
     @Column(nullable = false)
-    String email;
+    private String email;
     @Column(nullable = false)
-    LocalDate fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
 }

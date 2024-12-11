@@ -1,6 +1,13 @@
 package com.example.eventoService.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
+
+@Data
+@Builder
+@AllArgsConstructor
 
 public class ResponseMessage<T> {
     private String message;
@@ -30,55 +37,5 @@ public class ResponseMessage<T> {
         this.status = status;
         this.errorCode = errorCode;
         this.date = date;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getCause() {
-        return cause;
-    }
-
-    public void setCause(String cause) {
-        this.cause = cause;
-    }
-
-    public HttpStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(HttpStatus status) {
-        this.status = status;
-    }
-
-    public T getBody() {
-        return body;
-    }
-
-    public void setBody(T body) {
-        this.body = body;
-    }
-
-
-    public int getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-
     }
 }

@@ -237,4 +237,63 @@ public class EventoServiceImplTest {
             assertTrue(dtoEvento1 instanceof DtoEvento, "Se ha devuelto algo que no era un DtoEvento.");
         }
     }
+
+    @Test
+    public void deleteEventoNoExisteTest() {
+        Long idEjemplo = 648L;
+        when(eventoRepository.existsById(idEjemplo)).thenReturn(false);
+
+        IllegalArgumentException ex = assertThrows(
+                IllegalArgumentException.class, () -> eventoService.deleteById(idEjemplo)
+        );
+
+        String mensajeEx = "El evento con ID " + idEjemplo + " no existe.";
+        assertEquals(mensajeEx, ex.getMessage());
+        verify(eventoRepository, never()).deleteById(idEjemplo);
+    }
+
+    @Test
+    public void deleteEventoCorrectamenteTest() {
+        Long idEjemplo = 648L;
+        Evento eventoEjemplo = Evento.builder()
+                .id(idEjemplo)
+                .nombre("Concierto 珂拉琪")
+                .genero("Folk-rock")
+                .localidad("Madrid")
+                .recinto("Sala Caracol")
+                .descripcion("ojalá")
+                .fecha(LocalDate.from(LocalDate.now().plusDays(10)))
+                .precioMin(10)
+                .precioMax(50)
+                .build();
+        DtoEvento dtoEjemplo = DtoEvento.builder()
+                .id(idEjemplo)
+                .nombre("Concierto 珂拉琪")
+                .genero("Folk-rock")
+                .localidad("Madrid")
+                .recinto("Sala Caracol")
+                .descripcion("ojalá")
+                .fecha(String.valueOf(LocalDate.now().plusDays(10)))
+                .precioMin(10)
+                .precioMax(50)
+                .build();
+        when(eventoRepository.save(any(Evento.class))).thenReturn(eventoEjemplo);
+        DtoEvento resultado = eventoService.saveEvento(dtoEvento);
+        verify(eventoRepository, times(1)).save(any(Evento.class));
+
+        assert(resultado.getNombre().equals(eventoEjemplo.getNombre()));
+        assert(resultado.getGenero().equals(eventoEjemplo.getGenero()));
+        assert(resultado.getLocalidad().equals(eventoEjemplo.getLocalidad()));
+        assert(resultado.getRecinto().equals(eventoEjemplo.getRecinto()));
+        assert(resultado.getPrecioMin() == eventoEjemplo.getPrecioMin());
+        assert(resultado.getPrecioMax() == eventoEjemplo.getPrecioMax());
+
+        when(eventoRepository.existsById(eventoEjemplo.getId())).thenReturn(true);
+        eventoService.deleteById(eventoEjemplo.getId());
+
+        verify(eventoRepository, times(1)).deleteById(eventoEjemplo.getId());
+        verify(eventoRepository, times(1)).existsById(eventoEjemplo.getId());
+    }
+
+
 }

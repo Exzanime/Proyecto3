@@ -58,6 +58,9 @@ public class EventoServiceImpl implements EventoService{
     @Override
     @Transactional
     public void deleteById(Long id) {
+        if (!eventoRepository.existsById(id)){
+            throw new IllegalArgumentException("El evento con ID " + id + " no existe.");
+        }
         eventoRepository.deleteById(id);
     }
 

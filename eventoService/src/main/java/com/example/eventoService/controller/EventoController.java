@@ -66,16 +66,24 @@ public class EventoController {
         return ResponseEntity.ok(listaTodosLosEventos);
     }
 
+    /**
+     * Elimina un Evento/DtoEvento del repositorio en el endpoint /{id}, y devuelve la información pertinente
+     * según el resultado
+     *
+     * @param id Long autoincremental en los objetos Evento y DtoEvento
+     * @return ResponseEntity que contiene un ReponseMessage: para casos en los que el evento no se encuentra
+     * (HTTP 404 NOT FOUND) y para los que la eliminación se realiza sin problemas (HTTP 200 OK)
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteEvento(@PathVariable Long id) {
         DtoEvento dtoEvento = eventoService.getDetalleEvento(id);
         if (dtoEvento == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     ResponseMessage.builder()
                             .message("Evento no encontrado.")
                             .cause("No ha sido encontrado el evento con id " + id + ".")
-                            .status(HttpStatus.BAD_REQUEST)
-                            .code(HttpStatus.BAD_REQUEST.value())
+                            .status(HttpStatus.NOT_FOUND)
+                            .code(HttpStatus.NOT_FOUND.value())
                             .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
                             .build()
              );

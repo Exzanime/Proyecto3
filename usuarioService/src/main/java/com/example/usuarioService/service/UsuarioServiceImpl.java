@@ -171,14 +171,14 @@ public class UsuarioServiceImpl implements UsuarioService {
     public DtoUsuario updateUsuario(Long id, DtoUsuario dtoUsuario) {
         Usuario usuarioExistente = usuarioRepository.findById(id).orElse(null);
         if (usuarioExistente == null) {
-            return null; // Usuario no encontrado
+            return null; //usuario no encontrado
         }
-        // Actualizar los campos necesarios
+        //actualizar los campos necesarios
         usuarioExistente.setNombre(dtoUsuario.getNombre());
         usuarioExistente.setApellido(dtoUsuario.getApellido());
         usuarioExistente.setEmail(dtoUsuario.getEmail());
         usuarioExistente.setFechaNacimiento(dtoUsuario.getFechaNacimiento());
-        // Guardar cambios
+        //guardar cambios
         Usuario usuarioActualizado = usuarioRepository.save(usuarioExistente);
         return conversionUsuarioADto(usuarioActualizado);
     }

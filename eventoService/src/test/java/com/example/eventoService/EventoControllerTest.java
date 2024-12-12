@@ -44,7 +44,7 @@ public class EventoControllerTest {
     static class MockConfiguration {
         @Bean
         public EventoService eventoService() {
-            return mock(EventoService.class); // Mock manual del servicio
+            return mock(EventoService.class);
         }
     }
     @Test

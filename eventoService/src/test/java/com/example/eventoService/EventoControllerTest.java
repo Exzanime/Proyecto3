@@ -4,15 +4,10 @@ import com.example.eventoService.controller.EventoController;
 import com.example.eventoService.dto.DtoEvento;
 import com.example.eventoService.dto.ResponseMessage;
 import com.example.eventoService.service.EventoService;
-import com.example.eventoService.service.EventoServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
@@ -27,7 +22,6 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.openMocks;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -91,7 +85,7 @@ public class EventoControllerTest {
                         .build()
         );
 
-        when(eventoService.validate(any(DtoEvento.class))).thenReturn(errores);
+        when(eventoService.validate(any(DtoEvento.class),false)).thenReturn(errores);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/evento/registro")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dtoEvento)))

@@ -23,7 +23,7 @@ public class EventoController {
 
     @PostMapping("/registro")
     ResponseEntity<?> addEvento(@RequestBody DtoEvento dtoEvento){
-        List<ResponseMessage> errores = eventoService.validate(dtoEvento);
+        List<ResponseMessage> errores = eventoService.validate(dtoEvento,false);
         if(!errores.isEmpty()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseMessage.builder()
                     .message("Error en la petición")
@@ -68,7 +68,7 @@ public class EventoController {
     @PutMapping("/update/{id}")
     ResponseEntity<?> updateEvento(@PathVariable Long id, @RequestBody DtoEvento dtoEvento){
         dtoEvento.setId(id);
-        List<ResponseMessage> errores = eventoService.validate(dtoEvento);
+        List<ResponseMessage> errores = eventoService.validate(dtoEvento,true);
         if(!errores.isEmpty()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseMessage.builder()
                     .message("Error en la petición")

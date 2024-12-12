@@ -65,7 +65,7 @@ public class EventoServiceImpl implements EventoService{
     }
 
     @Override
-    public List<ResponseMessage> validate(DtoEvento dtoEvento) {
+    public List<ResponseMessage> validate(DtoEvento dtoEvento,boolean isUpdate) {
         List<ResponseMessage> errores = new ArrayList<>();
         if(dtoEvento == null){
             errores.add(ResponseMessage.builder()
@@ -222,10 +222,19 @@ public class EventoServiceImpl implements EventoService{
                     .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
                     .build());
         }
-        if (eventoRepository.existEvento(dtoEvento.getNombre(),dtoEvento.getGenero(), LocalDate.parse(dtoEvento.getFecha()),dtoEvento.getLocalidad(),dtoEvento.getRecinto(),dtoEvento.getPrecioMin(),dtoEvento.getPrecioMax(),dtoEvento.getDescripcion())){
+        if (eventoRepository.existEvento(dtoEvento.getNombre(),dtoEvento.getGenero(), LocalDate.parse(dtoEvento.getFecha()),dtoEvento.getLocalidad(),dtoEvento.getRecinto(),dtoEvento.getPrecioMin(),dtoEvento.getPrecioMax(),dtoEvento.getDescripcion()) && !isUpdate){
             errores.add(ResponseMessage.builder()
                     .message("Evento duplicado")
                     .cause("El evento "+dtoEvento.getNombre()+" ya existe")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))
+                    .build());
+        }
+        if (eventoRepository.existEvento(dtoEvento.getNombre(),dtoEvento.getGenero(), LocalDate.parse(dtoEvento.getFecha()),dtoEvento.getLocalidad(),dtoEvento.getRecinto(),dtoEvento.getPrecioMin(),dtoEvento.getPrecioMax(),dtoEvento.getDescripcion())&&isUpdate){
+            errores.add(ResponseMessage.builder()
+                    .message("No se ha modificado nada en el evento")
+                    .cause("No se ha modificado nada en el evento "+dtoEvento.getNombre())
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
                     .date(LocalDateTime.now().format(new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").toFormatter()))

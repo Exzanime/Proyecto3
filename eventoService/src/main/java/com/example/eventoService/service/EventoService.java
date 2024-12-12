@@ -19,7 +19,7 @@ public interface EventoService {
     DtoEvento getDetalleEvento(Long id);
     List<DtoEvento> listarEventos();
     void deleteById(Long id);
-    List<ResponseMessage> validate(DtoEvento dtoEvento);
+    List<ResponseMessage> validate(DtoEvento dtoEvento,boolean isUpdate);
     DtoEvento updateEvento(Long id,DtoEvento dtoEvento);
     List<DtoEvento> findByNombre(String nombre);
 }

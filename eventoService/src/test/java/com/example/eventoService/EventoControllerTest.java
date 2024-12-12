@@ -2,6 +2,7 @@ package com.example.eventoService;
 
 import com.example.eventoService.controller.EventoController;
 import com.example.eventoService.dto.DtoEvento;
+import com.example.eventoService.dto.ResponseMessage;
 import com.example.eventoService.service.EventoService;
 import com.example.eventoService.service.EventoServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +20,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -41,7 +48,7 @@ public class EventoControllerTest {
         }
     }
     @Test
-    void addEventoDevuelveCreatedWhenIsValid() throws Exception {
+    void addEventoShouldReturnCreatedWhenInputIsValid() throws Exception {
         DtoEvento dtoEvento = DtoEvento.builder()
                 .nombre("Concierto Rock")
                 .descripcion("Concierto en vivo de bandas locales")
@@ -63,7 +70,7 @@ public class EventoControllerTest {
     }
 
     @Test
-    void addEventoDevuelveBadRequestWhenInputIsInvalid() throws Exception {
+    void addEventoShouldReturnBadRequestWhenInputIsInvalid() throws Exception {
         DtoEvento dtoEvento = DtoEvento.builder()
                 .nombre("")
                 .descripcion("Concierto en vivo de bandas locales")
@@ -74,13 +81,23 @@ public class EventoControllerTest {
                 .precioMin(30.50)
                 .precioMax(100.00)
                 .build();
+        List<ResponseMessage> errores = List.of(
+                ResponseMessage.builder()
+                        .message("Nombre no puede estar vacío")
+                        .cause("Se ha proporcionado un nombre vacío")
+                        .status(HttpStatus.BAD_REQUEST)
+                        .code(HttpStatus.BAD_REQUEST.value())
+                        .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                        .build()
+        );
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/registro")
+        when(eventoService.validate(any(DtoEvento.class))).thenReturn(errores);
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/evento/registro")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dtoEvento)))
-                .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value("Error interno. Hubo un problema al procesar la solicitud. Inténtalo de nuevo más tarde."))
-                .andExpect(jsonPath("$.cause").value("No static resource registro."))
-                .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.name()));
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Error en la petición"))
+                .andExpect(jsonPath("$.cause").value("La petición no es válida"))
+                .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.name()));
     }
 }

@@ -171,7 +171,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public DtoUsuario updateUsuario(Long id, DtoUsuario dtoUsuario) {
         Usuario usuarioExistente = usuarioRepository.findById(id).orElse(null);
         if (usuarioExistente == null) {
-            return null; //usuario no encontrado
+            return null; //usuarioi no encontrado
         }
         //actualizar los campos necesarios
         usuarioExistente.setNombre(dtoUsuario.getNombre());

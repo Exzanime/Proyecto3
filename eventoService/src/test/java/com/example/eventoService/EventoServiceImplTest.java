@@ -295,5 +295,28 @@ public class EventoServiceImplTest {
         verify(eventoRepository, times(1)).existsById(eventoEjemplo.getId());
     }
 
+    @Test
+    void testFindByNombre() {
+        String nombreEvento = "Concierto de Rock";
+        Evento eventoMock = Evento.builder()
+                .id(1L)
+                .nombre(nombreEvento)
+                .descripcion("Un concierto increíble")
+                .genero("Rock")
+                .localidad("Madrid")
+                .recinto("Estadio Santiago Bernabéu")
+                .fecha(LocalDate.now())
+                .precioMin(30.00)
+                .precioMax(100.00)
+                .build();
+        when(eventoRepository.findByNombre(nombreEvento)).thenReturn(List.of(eventoMock));
+        List<DtoEvento> resultado = eventoService.findByNombre(nombreEvento);
+
+        assertFalse(resultado.isEmpty(), "El resultado no debe estar vacío");
+        assertEquals(1, resultado.size(), "Debe haber un evento");
+        assertEquals(nombreEvento, resultado.get(0).getNombre(), "El nombre del evento debe coincidir");
+
+        verify(eventoRepository, times(1)).findByNombre(nombreEvento);
+    }
 
 }

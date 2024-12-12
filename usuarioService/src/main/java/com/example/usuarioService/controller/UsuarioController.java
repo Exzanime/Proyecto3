@@ -3,7 +3,6 @@ package com.example.usuarioService.controller;
 import java.time.LocalDateTime;
 import com.example.usuarioService.dto.DtoUsuario;
 import com.example.usuarioService.dto.ResponseMessage;
-import com.example.usuarioService.entity.Usuario;
 import com.example.usuarioService.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Controlador REST para gestionar las operaciones relacionadas con los usuarios
@@ -35,7 +33,7 @@ public class UsuarioController {
      */
     @PostMapping("/registro")
     ResponseEntity<?> registrarUsuario(@RequestBody DtoUsuario dtoUsuario) {
-        List<ResponseMessage> errores = usuarioService.validate(dtoUsuario);
+        List<ResponseMessage> errores = usuarioService.validatePost(dtoUsuario);
         if (!errores.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseMessage.builder()
                     .message("Error en la petición")
@@ -58,27 +56,24 @@ public class UsuarioController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateUsuario(@RequestBody DtoUsuario dtoUsuario, @PathVariable Long id) {
-        //DtoUsuario optionalDtoUsuario = usuarioService.getDetalleUsuario(id);
-        List<ResponseMessage> errores = usuarioService.validate(dtoUsuario);
-        if (!errores.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseMessage.builder()
-                    .message("Error en la petición")
-                    .cause("La petición no es válida")
-                    .status(HttpStatus.BAD_REQUEST)
-                    .code(HttpStatus.BAD_REQUEST.value())
+    ResponseEntity<?> updateUsuario(@PathVariable Long id, @RequestBody DtoUsuario dtoUsuario){
+        DtoUsuario usuarioActualizado = usuarioService.updateUsuario(id, dtoUsuario);
+        if (usuarioActualizado == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseMessage.builder()
+                    .message("Usuario no encontrado")
+                    .cause("No se ha encontrado el usuario con id: " + id)
+                    .status(HttpStatus.NOT_FOUND)
                     .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
-                    .body(errores)
-                    .build());
-        } else {
-            return ResponseEntity.status(HttpStatus.CREATED).body(ResponseMessage.builder()
-                    .message("Usuario actualizado")
-                    .cause("El usuario " + dtoUsuario.getNombre() + " ha sido actualizado correctamente")
-                    .status(HttpStatus.CREATED)
-                    .code(HttpStatus.CREATED.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
-                    .body(usuarioService.saveUsuario(dtoUsuario))
                     .build());
         }
+        return ResponseEntity.status(HttpStatus.OK).body(ResponseMessage.builder()
+                .message("Usuario actualizado")
+                .cause("El usuario " + dtoUsuario.getNombre() + " ha sido actualizado correctamente")
+                .status(HttpStatus.OK)
+                .code(HttpStatus.OK.value())
+                .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                .body(usuarioActualizado)
+                .build());
+
     }
 }

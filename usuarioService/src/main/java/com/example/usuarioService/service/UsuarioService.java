@@ -2,7 +2,6 @@ package com.example.usuarioService.service;
 
 import com.example.usuarioService.dto.DtoUsuario;
 import com.example.usuarioService.dto.ResponseMessage;
-import com.example.usuarioService.entity.Usuario;
 
 import java.util.List;
 
@@ -17,7 +16,9 @@ import java.util.List;
  */
 public interface UsuarioService {
     public DtoUsuario saveUsuario(DtoUsuario dtoUsuario);
-    public List<ResponseMessage> validate(DtoUsuario dtoUsuario);
+    public List<ResponseMessage> validatePost(DtoUsuario dtoUsuario);
+    List<ResponseMessage> validatePut(DtoUsuario dtoUsuario);
     public boolean isValidateEmail(String email);
     DtoUsuario getDetalleUsuario(Long id);
+    DtoUsuario updateUsuario(Long id,DtoUsuario dtoUsuario);
 }

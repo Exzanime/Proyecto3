@@ -5,6 +5,9 @@ import com.example.usuarioService.entity.Usuario;
 import com.example.usuarioService.errors.DuplicadoException;
 import com.example.usuarioService.repository.UsuarioRepository;
 import com.example.usuarioService.service.UsuarioServiceImpl;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -14,6 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -36,7 +41,7 @@ public class UsuarioTest {
         dtoUsuario = DtoUsuario.builder()
                 .nombre("Juan")
                 .apellido("Juan")
-                .email("juan@gmail.com")
+                .email("juanito@gmail.com")
                 .fechaNacimiento(LocalDate.of(1999,1,23))
                 .build();
 
@@ -80,5 +85,44 @@ public class UsuarioTest {
         verify(usuarioRepository,never()).save(any(Usuario.class));
     }
 
+
+    //comprobacion de json con getById
+    @Test
+    void verificaEstructuraJsonCorrecta() {
+        //URI de la API
+        RestAssured.baseURI = "http://localhost:777/api/usuario";
+
+        //ID a consultar
+        Long usuarioId = 1L;
+
+        given()
+                .contentType(ContentType.JSON) //tipo de contenido de la solicitud
+                .when()
+                .get("/usuarios/{id}", usuarioId) //solicitud GET
+                .then()
+                .statusCode(200) //verifica que sea un 200
+                .contentType(ContentType.JSON); //tipo de contenido de la respuesta
+
+    }
+
+    @Test
+    @Transactional
+    void verificaJsonPost(){
+        RestAssured.baseURI = "http://localhost:7777/api/usuario";
+
+
+
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(dtoUsuario)
+
+                .when()
+                .post("/registro")
+
+                .then()
+                .statusCode(201)
+                .contentType(ContentType.JSON);
+    }
 
 }

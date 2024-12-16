@@ -1,10 +1,17 @@
 package com.example.ventaService.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Entity
 @Data
-public class evento {
-
+@NoArgsConstructor
+@AllArgsConstructor
+public class Evento {
+    @Id
     Long id;
     String nombre;
 
@@ -21,5 +28,4 @@ public class evento {
     double precioMin;
 
     double precioMax;
-
 }

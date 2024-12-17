@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class UserValidationResponse {
     @JsonProperty("user")
     String user;
@@ -17,4 +15,37 @@ public class UserValidationResponse {
     String pwd;
     @JsonProperty("token")
     String token;
+
+    public UserValidationResponse() {
+    }
+
+    public UserValidationResponse(String user, String pwd, String token) {
+        this.user = user;
+        this.pwd = pwd;
+        this.token = token;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@FeignClient(name = "eventoService")//PONEMOS EL NOMBRE DEL MICROSERVICIO (EL QUE PONEMOS EN EL PROPERTIES)
-@RequestMapping("/evento")//AQUI VA EL ENDPONT DEL RESTCONTROLLER DEL MICROSERVICIO
+@FeignClient(name = "eventoService",url = "localhost:8888/evento")//PONEMOS EL NOMBRE DEL MICROSERVICIO (EL QUE PONEMOS EN EL PROPERTIES)
 public interface EventoClient {
     @GetMapping("/details/{id}")
     ResponseEntity<?> getDetalles(@PathVariable Long id);

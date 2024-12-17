@@ -53,9 +53,9 @@ public class VentaServiceImpl implements VentaService{
                     .build());
             return errores;
         }
-        if(dtoVenta.getFechaCompra()==null && dtoVenta.getNombreEvento()=="" && dtoVenta.getUserEmail()==""&&dtoVenta.getPrecio()<0.01){
+        if(dtoVenta.getFechaCompra()==null && dtoVenta.getNombreEvento()=="" && dtoVenta.getUserEmail()=="" && dtoVenta.getPrecio()==0){
             errores.add(ResponseMessage.builder()
-                    .message("La venta no puede estar vacia")
+                    .message("Usuario no puede ser vacío")
                     .cause("Se ha proporcionado un usuario vacío")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
@@ -109,7 +109,7 @@ public class VentaServiceImpl implements VentaService{
                     .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
                     .build());
         }
-        if(dtoVenta.getPrecio()<0.01){
+        if(dtoVenta.getPrecio()==0){
             errores.add(ResponseMessage.builder()
                     .message("El precio no puede estar vacio")
                     .cause("No se ha proporcionado un precio")

@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "usuarioService")
-@RequestMapping("/usuario")
+@FeignClient(name = "usuarioService",url = "localhost:7777/usuario")
 public interface UsuarioClient {
 
     @GetMapping("/validar")

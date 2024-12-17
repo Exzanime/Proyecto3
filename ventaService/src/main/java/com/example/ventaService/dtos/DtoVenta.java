@@ -16,10 +16,13 @@ import java.time.LocalDateTime;
 @Builder
 public class DtoVenta {
 
-    private Usuario usuarioClient;
+    //private Usuario usuarioClient;
 
-    private Evento eventoClient;
+//    private Evento eventoClient;
 
+    private String userEmail;
+
+    private String nombreEvento;
     private LocalDateTime fechaCompra;
     private BigDecimal precio;
 }

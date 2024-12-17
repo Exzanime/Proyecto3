@@ -40,7 +40,7 @@ public class UsuarioTest {
         MockitoAnnotations.openMocks(this);
         dtoUsuario = DtoUsuario.builder()
                 .nombre("Juan")
-                .apellido("Juan")
+                .apellido("Juanez")
                 .email("juanito@gmail.com")
                 .fechaNacimiento(LocalDate.of(1999,1,23))
                 .build();
@@ -90,7 +90,7 @@ public class UsuarioTest {
     @Test
     void verificaEstructuraJsonCorrecta() {
         //URI de la API
-        RestAssured.baseURI = "http://localhost:7777/api/usuario";
+        RestAssured.baseURI = "http://localhost:7777/usuario";
 
         //ID a consultar
         Long usuarioId = 1L;
@@ -108,7 +108,7 @@ public class UsuarioTest {
     @Test
     @Transactional
     void verificaJsonPost(){
-        RestAssured.baseURI = "http://localhost:7777/api/usuario";
+        RestAssured.baseURI = "http://localhost:7777/usuario";
 
 
 

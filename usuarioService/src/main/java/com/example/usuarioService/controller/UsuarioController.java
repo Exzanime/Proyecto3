@@ -76,4 +76,37 @@ public class UsuarioController {
                 .build());
 
     }
+
+    /**
+     * Elimina el usuario especificado si existe, encontrándolo por su ID.
+     * @param id autoincremental de la entidad Usuario
+     * @return ResponseEntity que contiene un ResponseMessage: si el usuario no se encuentra (HTTP 404 NOT FOUND)
+     * y si se encuentra y elimina sin problemas (HTTP 200 OK)
+     */
+    @DeleteMapping("/{id}")
+    ResponseEntity<?> deleteUsuario(@PathVariable Long id) {
+        DtoUsuario dtoUsuario = usuarioService.getDetalleUsuario(id);
+        if (dtoUsuario == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    ResponseMessage.builder()
+                            .message("Cliente no encontrado.")
+                            .cause("Ese usuario, con #" + id + ", no está registrado.")
+                            .status(HttpStatus.NOT_FOUND)
+                            .code(HttpStatus.NOT_FOUND.value())
+                            .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))).build()
+            );
+        }
+
+        String nombreUsuario = dtoUsuario.getNombre();
+        usuarioService.deleteById(id);
+        return ResponseEntity.ok(
+            ResponseMessage.builder()
+                    .message("Usuario eliminado correctamente.")
+                    .cause("El usuario #" + id + ", con nombre " + nombreUsuario + ", fue eliminado.")
+                    .status(HttpStatus.OK)
+                    .code(HttpStatus.OK.value())
+                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .build()
+        );
+    }
 }

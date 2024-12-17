@@ -133,5 +133,30 @@ class UsuarioServiceImplTest {
         verify(usuarioRepository, times(1)).save(any(Usuario.class));
     }
 
+    @Test
+    void eliminarUsuarioCorrectamenteTest(){
+        Long id = 5L;
+
+        Usuario usuarioEjemplo = Usuario.builder()
+                .id(id)
+                .nombre("Nissi")
+                .apellido("M.")
+                .email("ejemplito@gmail.com")
+                .fechaNacimiento(LocalDate.of(1999, 6, 4))
+                .build();
+
+        when(usuarioRepository.existsById(id)).thenReturn(true);
+        when(usuarioRepository.findById(id)).thenReturn(Optional.of(usuarioEjemplo));
+
+        usuarioService.deleteById(id);
+
+        verify(usuarioRepository, times(1)).existsById(id);
+        verify(usuarioRepository, times(1)).deleteById(id);
+
+        verify(usuarioRepository, never()).save(any(Usuario.class));
+    }
+
+
+
 }
 

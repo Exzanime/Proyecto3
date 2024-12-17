@@ -21,4 +21,5 @@ public interface UsuarioService {
     public boolean isValidateEmail(String email);
     DtoUsuario getDetalleUsuario(Long id);
     DtoUsuario updateUsuario(Long id,DtoUsuario dtoUsuario);
+    void deleteById(Long id);
 }

@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Entity
+//@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Usuario {
     private static final long serialVersionUID = 1L;
-    @Id
+    //@Id
     private Long id;
     private String nombre;
     private String apellido;

@@ -16,7 +16,7 @@ import java.util.List;
  * los eventos: crear, actualizar, listar, eliminar y realizar validaciones.
  *
  * @author Denis, Violeta, Alejandro, Nacho
- * @since 2024-12-09
+ * @since 2024-12-10
  * @version 1.0
  */
 @RestController

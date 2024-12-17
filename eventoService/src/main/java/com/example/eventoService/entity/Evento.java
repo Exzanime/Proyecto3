@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  * </p>
  * @author Violeta, Denis, Alejandro, Nacho
  * @version 1.0
- * @date 2024
+ * @date 2024/12/10
  * */
 @Entity
 @Data

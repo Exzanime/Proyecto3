@@ -4,6 +4,7 @@ import com.example.usuarioService.dto.DtoUsuario;
 import com.example.usuarioService.dto.ResponseMessage;
 import com.example.usuarioService.entity.Usuario;
 import com.example.usuarioService.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -160,6 +161,15 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuarioRepository.findById(id)
                 .map(this::conversionUsuarioADto)
                 .orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        if (!usuarioRepository.existsById(id)){
+            throw new IllegalArgumentException("El usuario #" + id + " no existe.");
+        }
+        usuarioRepository.deleteById(id);
     }
 
     /**

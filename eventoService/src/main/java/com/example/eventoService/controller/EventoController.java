@@ -3,24 +3,35 @@ package com.example.eventoService.controller;
 import com.example.eventoService.dto.DtoEvento;
 import com.example.eventoService.dto.ResponseMessage;
 import com.example.eventoService.service.EventoService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
-import java.util.Optional;
 
+/**
+ * Controlador REST para manejar todas las operaciones relacionadas con
+ * los eventos: crear, actualizar, listar, eliminar y realizar validaciones.
+ *
+ * @author Denis, Violeta, Alejandro, Nacho
+ * @since 2024-12-09
+ * @version 1.0
+ */
 @RestController
 @RequestMapping("/evento")
 public class EventoController {
     @Autowired
     EventoService eventoService;
 
+    /**
+     * Añade un nuevo evento, recibiendo un objeto DtoEvento en el endpoint /registro
+     *
+     * @param dtoEvento datos del evento convertidos a DTO
+     * @return ResponseEntity que contiene un ReponseMessage: para casos en los que el evento no se encuentra
+     * (HTTP 400 BAD REQUEST) y para los que se agrega sin problemas (HTTP 201)
+     */
     @PostMapping("/registro")
     ResponseEntity<?> addEvento(@RequestBody DtoEvento dtoEvento){
         List<ResponseMessage> errores = eventoService.validate(dtoEvento,false);
@@ -43,6 +54,14 @@ public class EventoController {
                 .body(eventoService.saveEvento(dtoEvento))
                 .build());
     }
+
+    /**
+     * Busca un evento concreto por su ID y devuelve sus detalles en el endpoint /details/{id}
+     *
+     * @param id ID del evento que se quiere consultar
+     * @return ReponseEntity que contiene un ReponseMessage con un mensaje de
+     * error si no se encuentra (HTTP 404 NOT FOUND)
+     */
     @GetMapping("/details/{id}")
     ResponseEntity<?> getDetalles(@PathVariable Long id){
         if(eventoService.getDetalleEvento(id)==null){
@@ -57,7 +76,8 @@ public class EventoController {
     }
 
     /**
-     * Devuelve todos los eventos existentes en la base de datos
+     * Devuelve todos los eventos existentes en la base de datos en el endpoint /eventos
+     *
      * @return Lista de Dto de la entidad Evento
      */
     @GetMapping("/eventos")
@@ -65,6 +85,16 @@ public class EventoController {
         List<DtoEvento> listaTodosLosEventos = eventoService.listarEventos();
         return ResponseEntity.ok(listaTodosLosEventos);
     }
+
+    /**
+     * Actualiza un evento existente, buscado por ID, y le pasa datos nuevos. En el
+     * endpoint /update/{id}
+     *
+     * @param id ID del evento a actualizar
+     * @param dtoEvento Nuevo objeto DtoEvento con parámetros actualizados
+     * @return ResponseEntity que contiene un ResponseMessage con mensajes para
+     * casos de BAD REQUEST, NOT FOUND u OK
+     */
     @PutMapping("/update/{id}")
     ResponseEntity<?> updateEvento(@PathVariable Long id, @RequestBody DtoEvento dtoEvento){
         dtoEvento.setId(id);
@@ -98,6 +128,13 @@ public class EventoController {
                 .build());
     }
 
+    /**
+     * Consulta un evento buscando por su nombre en el endpoint /name/{nombre}
+     *
+     * @param nombre Nombre en String del evento a consultar
+     * @return ResponseEntity que contiene un ReponseMessage: para casos en los que el evento no se encuentra
+     * (HTTP 400 BAD REQUEST) o para los que lo hace sin problemas (200 OK)
+     */
     @GetMapping("/name/{nombre}")
     public ResponseEntity<?> getEventoByName(@PathVariable String nombre){
         if(eventoService.findByNombre(nombre).isEmpty()){

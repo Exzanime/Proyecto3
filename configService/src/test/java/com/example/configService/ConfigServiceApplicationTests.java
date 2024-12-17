@@ -8,6 +8,13 @@ import org.springframework.cloud.config.environment.Environment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Pruebas unitarias del servicio de configuración
+ *
+ * @author Denis, Violeta, Alejandro, Nacho
+ * @since 2024-12-17
+ * @version 1.0
+ */
 @SpringBootTest
 class ConfigServiceApplicationTests {
 

@@ -31,8 +31,8 @@ public class VentaController {
             return ResponseEntity.ok(venta);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-            }
         }
+    }
     @PostMapping("/registro")
     ResponseEntity<?> registrarUsuario(@RequestBody DtoVenta dtoVenta) {
         List<ResponseMessage> errores = ventaService.validatePost(dtoVenta);

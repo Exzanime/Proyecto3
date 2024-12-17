@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class ValidarController {
 
     private final BancoClient bancoClient;
-    private String token;
+    private static String token;
 
     public ValidarController(BancoClient bancoClient) {
         this.bancoClient = bancoClient;
@@ -26,18 +26,19 @@ public class ValidarController {
     public ResponseEntity<?> validarUsuario(@RequestBody UserValidationRequest request) {
         try {
             UserValidationResponse response = bancoClient.validarUsuario(request.getUser(), request.getPwd());
+            token = response.getToken();
             return ResponseEntity.ok(response);
         } catch (FeignException e) {
             return ResponseEntity.status(e.status()).body("Error: " + e.getMessage());
         }
     }
     @PostMapping("/venta")
-    public ResponseEntity<?> validarVenta(@RequestBody VentaValidationRequest request,@RequestHeader("Authorization") String jwtToken) {
+    public ResponseEntity<?> validarVenta(@RequestBody VentaValidationRequest request) {
         try {
-            VentaValidationResponse response = bancoClient.validarVenta(request, jwtToken);
+            VentaValidationResponse response = bancoClient.validarVenta(request, token);
             return ResponseEntity.ok(response);
         } catch (FeignException e) {
-            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage()+ "Request " +request.toString() + "token " + token);
         }
     }
 }

@@ -1,9 +1,7 @@
 package com.example.ventaService.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+
 
 public class VentaValidationRequest {
     @JsonProperty("numeroTarjeta")
@@ -99,5 +97,19 @@ public class VentaValidationRequest {
         this.emisor = emisor;
         this.concepto = concepto;
         this.cantidad = cantidad;
+    }
+
+    @Override
+    public String toString() {
+        return "VentaValidationRequest{" +
+                "numeroTarjeta='" + numeroTarjeta + '\'' +
+                ", mesCaducidad='" + mesCaducidad + '\'' +
+                ", yearCaducidad='" + yearCaducidad + '\'' +
+                ", cvv='" + cvv + '\'' +
+                ", nombreTitular='" + nombreTitular + '\'' +
+                ", emisor='" + emisor + '\'' +
+                ", concepto='" + concepto + '\'' +
+                ", cantidad='" + cantidad + '\'' +
+                '}';
     }
 }

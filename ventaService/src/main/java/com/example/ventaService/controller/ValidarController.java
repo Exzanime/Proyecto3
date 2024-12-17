@@ -3,23 +3,21 @@ package com.example.ventaService.controller;
 import com.example.ventaService.dtos.UserValidationRequest;
 import com.example.ventaService.dtos.UserValidationResponse;
 import com.example.ventaService.feignClient.BancoClient;
-import com.example.ventaService.feignClient.UsuarioClient;
 import feign.FeignException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/test")
-public class TestController {
+@RequestMapping("/validar")
+public class ValidarController {
 
     private final BancoClient bancoClient;
 
-    public TestController(BancoClient bancoClient) {
+    public ValidarController(BancoClient bancoClient) {
         this.bancoClient = bancoClient;
     }
 
-    @PostMapping("/validar")
+    @PostMapping("/usuario")
     public ResponseEntity<?> validarUsuario(@RequestBody UserValidationRequest request) {
         try {
             UserValidationResponse response = bancoClient.validarUsuario(request.getUser(), request.getPwd());

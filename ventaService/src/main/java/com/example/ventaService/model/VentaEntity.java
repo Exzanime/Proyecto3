@@ -19,24 +19,15 @@ public class VentaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private Long usuarioId;
 
     private String userEmail;
 
-    @JoinColumn(nullable = false)
     private Long eventoId;
 
     private String nombreEvento;
 
-
-//    @Transient
-//    private Usuario usuarioClient;
-
-
-//    @Transient
-//    private Evento eventoClient;
-
     private LocalDateTime fechaCompra;
+    
     private double precio;
 }

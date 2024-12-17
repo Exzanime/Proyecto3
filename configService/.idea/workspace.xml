@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48b3099d-9b7a-4d13-b5a0-07767e7e8602" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/dtos/VentaRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../configData/ventaService.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../configData/ventaService.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../eurekaService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../eurekaService/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ventaService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/controller/VentaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/controller/VentaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/dtos/DtoTarjeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/dtos/DtoTarjeta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/dtos/VentaValidationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/dtos/VentaValidationRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/model/VentaEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/model/VentaEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/repository/VentaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/repository/VentaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/service/VentaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/service/VentaService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/service/VentaServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/service/VentaServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

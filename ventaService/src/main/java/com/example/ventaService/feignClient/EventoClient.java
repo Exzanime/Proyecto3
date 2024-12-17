@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @FeignClient(name = "eventoService",url = "localhost:8888/evento")//PONEMOS EL NOMBRE DEL MICROSERVICIO (EL QUE PONEMOS EN EL PROPERTIES)
 public interface EventoClient {
-    @GetMapping("/details/{id}")
-    ResponseEntity<?> getDetalles(@PathVariable Long id);
+    //@GetMapping("/details/{id}")
+    //ResponseEntity<?> getDetalles(@PathVariable Long id);
 
-    @GetMapping("/{id}")
+    @GetMapping("/details/{id}")
     Evento getEventoById(@PathVariable("id") Long idEvento);
 }

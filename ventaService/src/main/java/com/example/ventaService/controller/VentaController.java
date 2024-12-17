@@ -5,7 +5,6 @@ import com.example.ventaService.model.VentaEntity;
 import com.example.ventaService.dtos.DtoVenta;
 import com.example.ventaService.dtos.ResponseMessage;
 import com.example.ventaService.service.VentaService;
-import com.example.ventaService.service.VentaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +22,7 @@ import java.util.List;
 @RequestMapping("/venta")
 public class VentaController {
     @Autowired
-    private VentaServiceImpl ventaService;
+    private VentaService ventaService;
 
     @PostMapping("/compra")
     public ResponseEntity<?> ventaEntradas(@RequestParam String emailUsuario, @RequestParam Long idEvento, @RequestParam DtoTarjeta tarjeta){

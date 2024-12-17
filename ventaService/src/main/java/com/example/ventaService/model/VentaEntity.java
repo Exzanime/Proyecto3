@@ -19,13 +19,14 @@ public class VentaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "usuario_id", nullable = false)
+    @Column(nullable = false)
     private Long usuarioId;
 
     private String userEmail;
 
-    @JoinColumn(name = "evento_id", nullable = false)
+    @JoinColumn(nullable = false)
     private Long eventoId;
+
     private String nombreEvento;
 
 

@@ -20,12 +20,17 @@ public class VentaEntity {
     private Long id;
 
 
-    @Transient
-    private Usuario usuarioClient;
+    private String userEmail;
+
+    private String nombreEvento;
 
 
-    @Transient
-    private Evento eventoClient;
+//    @Transient
+//    private Usuario usuarioClient;
+
+
+//    @Transient
+//    private Evento eventoClient;
 
     private LocalDateTime fechaCompra;
     private BigDecimal precio;

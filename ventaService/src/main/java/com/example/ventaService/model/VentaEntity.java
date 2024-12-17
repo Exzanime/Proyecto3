@@ -17,12 +17,12 @@ public class VentaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
+
+    @Transient
     private Usuario usuarioClient;
 
-    @ManyToOne
-    @JoinColumn(name = "evento_id", nullable = false)
+
+    @Transient
     private Evento eventoClient;
 
     private LocalDateTime fechaCompra;

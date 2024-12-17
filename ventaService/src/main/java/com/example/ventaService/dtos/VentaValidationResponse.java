@@ -20,6 +20,9 @@ public class VentaValidationResponse {
     @JsonProperty("infoadicional")
     private String infoadicional;
 
+    public VentaValidationResponse(String s, String success, Object o, Object o1, Object o2, String infoAdicional) {
+    }
+
     public String getTimestamp() {
         return timestamp;
     }

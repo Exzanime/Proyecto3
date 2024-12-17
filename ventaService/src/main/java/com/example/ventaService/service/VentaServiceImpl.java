@@ -55,7 +55,7 @@ public class VentaServiceImpl implements VentaService{
         }
         if(dtoVenta.getFechaCompra()==null && dtoVenta.getNombreEvento()=="" && dtoVenta.getUserEmail()=="" && dtoVenta.getPrecio()==null){
             errores.add(ResponseMessage.builder()
-                    .message("Usuario no puede ser vacío")
+                    .message("La venta no puede estar vacia")
                     .cause("Se ha proporcionado un usuario vacío")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())

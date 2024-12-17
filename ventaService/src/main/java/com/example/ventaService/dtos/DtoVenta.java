@@ -28,5 +28,5 @@ public class DtoVenta {
 
     private String nombreEvento;
     private LocalDateTime fechaCompra;
-    private BigDecimal precio;
+    private double precio;
 }

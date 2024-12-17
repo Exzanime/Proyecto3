@@ -17,14 +17,12 @@ public class VentaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuarioClient;
+    @Column(name = "usuario_id", nullable = false)
+    private Long usuarioId;
 
-    @ManyToOne
     @JoinColumn(name = "evento_id", nullable = false)
-    private Evento eventoClient;
+    private Long eventoId;
 
     private LocalDateTime fechaCompra;
-    private BigDecimal precio;
+    private double precio;
 }

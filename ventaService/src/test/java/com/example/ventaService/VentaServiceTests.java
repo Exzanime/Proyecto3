@@ -41,16 +41,14 @@ public class VentaServiceTests {
 
 
 
-    //////FALTA CORREGIR
     @Test
     public void testVentaEntradas_ValidScenario() {
-        // Mocking responses
         UserValidationResponse userValidationResponse = new UserValidationResponse("Grupo04", "AntoniosRules", "token123");
         when(bancoClient.validarUsuario("Grupo04", "AntoniosRules")).thenReturn(userValidationResponse);
 
         VentaValidationResponse ventaValidationResponse = new VentaValidationResponse("2023-12-17T12:00:00", "success", null, null, null, "Info adicional");
         when(bancoClient.validarVenta(any(), anyString())).thenReturn(ventaValidationResponse);
-        Evento evento = new Evento();
+        //Evento evento = new Evento();
 
         Evento evento = new Evento();
         evento.setId(1L);
@@ -65,10 +63,8 @@ public class VentaServiceTests {
         tarjeta.setMesCaducidad("12");
         tarjeta.setYearCaducidad("25");
 
-        // Invoking the method to test
         VentaEntity venta = ventaService.ventaEntradas("email@usuario.com", 1L, tarjeta);
 
-        // Verifying the expected results
         assertNotNull(venta);
         assertEquals("email@usuario.com", venta.getUserEmail());
         assertEquals(1L, venta.getEventoId());

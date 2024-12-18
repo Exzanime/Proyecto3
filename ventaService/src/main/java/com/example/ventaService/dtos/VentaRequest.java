@@ -1,8 +1,10 @@
 package com.example.ventaService.dtos;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class VentaRequest {
     private String nombreTitular;
     private String numero;
@@ -14,5 +16,4 @@ public class VentaRequest {
     private String userEmail;
     private String nombreEvento;
     private double precio;
-    private String fechaCompra;
 }

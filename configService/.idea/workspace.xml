@@ -5,16 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48b3099d-9b7a-4d13-b5a0-07767e7e8602" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/dtos/VentaRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../configData/ventaService.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../configData/ventaService.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/controller/VentaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/controller/VentaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/dtos/DtoTarjeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/dtos/DtoTarjeta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/dtos/VentaValidationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/dtos/VentaValidationRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/model/VentaEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/model/VentaEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/repository/VentaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/repository/VentaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/service/VentaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/service/VentaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/service/VentaServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/service/VentaServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/dtos/VentaRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/dtos/VentaRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/feignClient/UsuarioClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/feignClient/UsuarioClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/test/java/com/example/ventaService/VentaControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/test/java/com/example/ventaService/VentaControllerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/test/java/com/example/ventaService/VentaServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/test/java/com/example/ventaService/VentaServiceApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/test/java/com/example/ventaService/VentaServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/test/java/com/example/ventaService/VentaServiceTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +87,8 @@
       <workItem from="1734419362727" duration="1951000" />
       <workItem from="1734445333445" duration="579000" />
       <workItem from="1734446333946" duration="359000" />
-      <workItem from="1734446743537" duration="610000" />
+      <workItem from="1734446743537" duration="611000" />
+      <workItem from="1734505897160" duration="626000" />
     </task>
     <servers />
   </component>

@@ -15,12 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.hamcrest.Matchers.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -50,7 +47,6 @@ public class VentaServiceTests {
 
         VentaValidationResponse ventaValidationResponse = new VentaValidationResponse("2023-12-17T12:00:00", "success", null, null, null, "Info adicional");
         when(bancoClient.validarVenta(any(), anyString())).thenReturn(ventaValidationResponse);
-        Evento evento = new Evento();
 
         Evento evento = new Evento();
         evento.setId(1L);

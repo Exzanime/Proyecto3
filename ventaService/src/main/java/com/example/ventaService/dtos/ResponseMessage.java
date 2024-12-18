@@ -1,10 +1,13 @@
 package com.example.ventaService.dtos;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
+
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -14,7 +17,8 @@ public class ResponseMessage<T> {
     private String cause;
     private HttpStatus status;
     private int code;
-    private String date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
+    private LocalDateTime date;
 
     private T body;
 
@@ -31,11 +35,12 @@ public class ResponseMessage<T> {
         this.status = status;
         this.code = status.value();
     }
-    public ResponseMessage(String message, String cause, HttpStatus status, String date) {
+    public ResponseMessage(String message, String cause, HttpStatus status, LocalDateTime date) {
         this.message = message;
         this.cause = cause;
         this.status = status;
         this.code = status.value();
         this.date = date;
     }
+    
 }

@@ -9,18 +9,23 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
+/**
+ * Clase de test para toda aquella funcionalidad perteneciente a la capa de servicios
+ *
+ * @autor Violeta,Nacho,Denis, Alejandro
+ * @version 1.0
+ * @date 2024/12/10
+ */
 @SpringBootTest
 public class EventoServiceImplTest {
     @Mock

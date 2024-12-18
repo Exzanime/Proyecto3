@@ -10,7 +10,6 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -19,7 +18,7 @@ import java.util.Locale;
  * Clase que maneja las excepciones de la aplicación
  * @autor Violeta,Nacho,Denis, Alejandro
  * @version 1.0
- * @date 2024
+ * @date 2024/12/11
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {

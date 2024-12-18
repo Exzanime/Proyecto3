@@ -2,10 +2,7 @@ package com.example.eventoService.service;
 
 import com.example.eventoService.dto.DtoEvento;
 import com.example.eventoService.dto.ResponseMessage;
-import com.example.eventoService.entity.Evento;
-
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Interfaz que define los métodos que se pueden realizar sobre los juegos

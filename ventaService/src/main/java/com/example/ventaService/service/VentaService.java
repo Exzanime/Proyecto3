@@ -19,4 +19,6 @@ public interface VentaService {
     List<DtoVenta> getVentasByUserEmail(String userEmail);
 
     List<ResponseMessage> validateVenta(VentaRequest ventaRequest);
+
+    List<DtoVenta> getVentasByFecha(String fecha);
 }

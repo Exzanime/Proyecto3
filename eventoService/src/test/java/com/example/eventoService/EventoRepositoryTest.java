@@ -5,13 +5,17 @@ import com.example.eventoService.repository.EventoRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Clase de test para toda aquella funcionalidad perteneciente a la capa de repositorio
+ *
+ * @autor Violeta,Nacho,Denis, Alejandro
+ * @version 1.0
+ * @date 2024/12/10
+ */
 @SpringBootTest
 public class EventoRepositoryTest {
     @Autowired

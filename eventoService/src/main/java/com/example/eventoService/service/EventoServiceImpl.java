@@ -8,16 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.List;
 
 /**
  * Implementacion de la interfaz EventoService
+ *
  * @autor Violeta,Nacho,Denis, Alejandro
  * @version 1.0
  * @date 2024
@@ -28,8 +27,11 @@ public class EventoServiceImpl implements EventoService{
     EventoRepository eventoRepository;
 
     /**
-     * @param dtoEvento
-     * @return
+     * Guarda un evento en la capa repositorio de un objeto DTO
+     * convertido previamente
+     *
+     * @param dtoEvento Objeto DtoEvento ya existente
+     * @return Nuevo objeto DtoEvento
      */
     public DtoEvento saveEvento(DtoEvento dtoEvento) {
         Evento evento = conversionDtoAEvento(dtoEvento);
@@ -40,6 +42,7 @@ public class EventoServiceImpl implements EventoService{
     /**
      * Se comunica con la capa de repositorio para acceder a todos sus eventos,
      * los mapea con el conversor y lo lista
+     *
      * @return Lista de todos los Dto de la entidad Evento
      */
     @Override
@@ -53,6 +56,7 @@ public class EventoServiceImpl implements EventoService{
     /**
      * Elimina un evento almacenado en la capa repositorio encontrándolo
      * por su identificador
+     *
      * @param id Long autoincremental que se genera al crear los eventos
      */
     @Override
@@ -64,6 +68,14 @@ public class EventoServiceImpl implements EventoService{
         eventoRepository.deleteById(id);
     }
 
+    /**
+     * Efectúa validaciones y emite ResponseMessages para tratar diferentes
+     * tipos de errores de inserción de los parámetros (campos vacíos, fallos de formato...)
+     *
+     * @param dtoEvento Objeto DtoEvento que se valida y contrasta
+     * @param isUpdate Booleano para poder controlar si un evento ya existe, e informar de ello
+     * @return Lista de ResponseMessage con los mensajes construidos y ordenados vía builder()
+     */
     @Override
     public List<ResponseMessage> validate(DtoEvento dtoEvento,boolean isUpdate) {
         List<ResponseMessage> errores = new ArrayList<>();
@@ -261,6 +273,14 @@ public class EventoServiceImpl implements EventoService{
         return errores;
     }
 
+    /**
+     * Recibe un ID y un DtoEvento existentes y, efectuando la conversión Dto-Evento,
+     * los guarda de nuevo a modo de actualización
+     *
+     * @param id Identificador del evento a actualizar
+     * @param dtoEvento Objeto DTO con los nuevos datos
+     * @return Usando el conversor, retorna el nuevo objeto
+     */
     @Override
     public DtoEvento updateEvento(Long id,DtoEvento dtoEvento) {
         dtoEvento.setId(id);
@@ -269,6 +289,12 @@ public class EventoServiceImpl implements EventoService{
         return conversionEventoADto(eventoGuardado);
     }
 
+    /**
+     * Busca un evento por su ID en la BD y, de existir, lo convierte a DTO
+     *
+     * @param id ID del objeto Evento
+     * @return Devuelve el objeto DTO detallado si se encuentra, y null si no
+     */
     @Override
     public DtoEvento getDetalleEvento(Long id) {
         return eventoRepository.findById(id)
@@ -278,6 +304,7 @@ public class EventoServiceImpl implements EventoService{
 
     /**
      * Función reutilizable para convertir una entidad Evento a su forma de DTO
+     *
      * @param evento
      * @return Evento convertido a EventoDto
      */
@@ -300,6 +327,7 @@ public class EventoServiceImpl implements EventoService{
 
     /**
      * Función reutilizable para convertir un EventoDto a su forma de entidad, Evento
+     *
      * @param dto
      * @return EventoDto convertido a Evento
      */
@@ -322,6 +350,7 @@ public class EventoServiceImpl implements EventoService{
 
     /**
      * Busca un evento por su nombre y lo convierte a un DtoEvento
+     *
      * @param nombre el nombre del evento a buscar
      * @return DtoEvento correspondiente si se encuentra, o null si no
      */

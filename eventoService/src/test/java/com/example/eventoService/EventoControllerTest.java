@@ -14,17 +14,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Clase de test para toda aquella funcionalidad perteneciente a la capa de control
+ *
+ * @autor Violeta,Nacho,Denis, Alejandro
+ * @version 1.0
+ * @date 2024/12/12
+ */
 @WebMvcTest(EventoController.class)
 @Import(EventoControllerTest.MockConfiguration.class)
 public class EventoControllerTest {

@@ -52,7 +52,7 @@ public class VentaServiceImpl implements VentaService{
                     .cause("Se ha proporcionado una venta null")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .build());
             return errores;
         }
@@ -62,7 +62,7 @@ public class VentaServiceImpl implements VentaService{
                     .cause("Se ha proporcionado un usuario vacío")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .build());
             return errores;
         }
@@ -72,7 +72,7 @@ public class VentaServiceImpl implements VentaService{
                     .cause("No se ha proporcionado un nombre")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .build());
         }
         if(dtoVenta.getNombreEvento()==""){
@@ -81,7 +81,7 @@ public class VentaServiceImpl implements VentaService{
                     .cause("Se ha proporcionado un nombre vacío")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .build());
         }
         if(dtoVenta.getUserEmail()==""){
@@ -90,7 +90,7 @@ public class VentaServiceImpl implements VentaService{
                     .cause("Se ha proporcionado un email vacío")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .build());
         }
         if(dtoVenta.getUserEmail()==null){
@@ -99,7 +99,7 @@ public class VentaServiceImpl implements VentaService{
                     .cause("No se ha proporcionado un eMail")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .build());
         }
 
@@ -109,7 +109,7 @@ public class VentaServiceImpl implements VentaService{
                     .cause("No se ha proporcionado una fecha")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .build());
         }
         if(dtoVenta.getPrecio()==0){
@@ -118,7 +118,7 @@ public class VentaServiceImpl implements VentaService{
                     .cause("No se ha proporcionado un precio")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .build());
         }
 
@@ -205,7 +205,7 @@ public class VentaServiceImpl implements VentaService{
                     .cause("Se ha proporcionado una venta null")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .build());
             return errores;
         }
@@ -215,7 +215,7 @@ public class VentaServiceImpl implements VentaService{
                     .cause("No se ha proporcionado un nombre")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .build());
         }
         if(ventaRequest.getNombreTitular()==""){
@@ -224,7 +224,7 @@ public class VentaServiceImpl implements VentaService{
                     .cause("Se ha proporcionado un nombre vacío")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .build());
         }
         if(ventaRequest.getNumero()==""){
@@ -233,7 +233,7 @@ public class VentaServiceImpl implements VentaService{
                     .cause("Se ha proporcionado un número vacío")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .build());
         }
         if(ventaRequest.getNumero()==null){
@@ -242,7 +242,7 @@ public class VentaServiceImpl implements VentaService{
                     .cause("No se ha proporcionado un número")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .build());
         }
 
@@ -252,7 +252,7 @@ public class VentaServiceImpl implements VentaService{
                     .cause("No se ha proporcionado un mes de caducidad")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .build());
         }
         if(ventaRequest.getYearCaducidad()==null) {
@@ -261,7 +261,7 @@ public class VentaServiceImpl implements VentaService{
                     .cause("No se ha proporcionado un año de caducidad")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .build());
         }
         if(ventaRequest.getCvv()==null) {
@@ -270,7 +270,7 @@ public class VentaServiceImpl implements VentaService{
                     .cause("No se ha proporcionado un cvv")
                     .status(HttpStatus.BAD_REQUEST)
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .build());
         }
         return errores;

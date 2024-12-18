@@ -4,7 +4,6 @@ import com.example.ventaService.feignClient.EventoClient;
 import com.example.ventaService.model.Evento;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,7 +18,7 @@ public class FeignClientTests {
     private EventoClient mockEventoClient; // Mock del cliente para simular respuestas
 
     @Test
-    public void testGetEventoById() {
+    public void testGetEventoByIdReturnValidEvento() {
 
         Evento mockResponse = new Evento();
         mockResponse.setId(1L);

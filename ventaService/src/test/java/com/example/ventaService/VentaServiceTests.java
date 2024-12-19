@@ -23,6 +23,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+/**
+ * Clase que implementa los tests de los métodos de la clase VentaService.
+ * Se utilizan mocks para simular el comportamiento de las clases BancoClient, EventoClient y VentaRepository.
+ * Se utilizan anotaciones de JUnit 5 para la ejecución de los tests.
+ * Se utilizan anotaciones de Mockito para la creación de mocks.
+ * Se utilizan métodos auxiliares de la clase Mockito para simular el comportamiento de los mocks.
+ * Se utilizan métodos de la clase Assertions para comprobar que los resultados de los tests son los esperados.
+ */
 class VentaServiceTests {
 
     @Mock
@@ -39,11 +47,20 @@ class VentaServiceTests {
     @InjectMocks
     private VentaServiceImpl ventaService;
 
+    /**
+     * Método que se ejecuta antes de cada test.
+     * Inicializa los mocks y la clase a testear.
+     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Test que comprueba que el método ventaEntradas de la clase VentaService crea una venta cuando la petición es válida.
+     * Se simula el comportamiento de los mocks para que devuelvan los valores esperados.
+     * Se comprueba que se ha guardado la venta en la base de datos.
+     */
     @Test
     void ventaEntradasShouldCreateVentaWhenRequestIsValid() {
         VentaRequest request = VentaRequest.builder()
@@ -78,6 +95,11 @@ class VentaServiceTests {
         verify(ventaRepository, times(1)).save(any(VentaEntity.class));
     }
 
+    /**
+     * Test que comprueba que el método ventaEntradas de la clase VentaService lanza una excepción cuando la validación del usuario falla.
+     * Se simula el comportamiento de los mocks para que devuelvan los valores esperados.
+     * Se comprueba que se lanza una excepción con el mensaje esperado.
+     */
     @Test
     void ventaEntradasShouldThrowExceptionWhenUserValidationFails() {
         VentaRequest request = VentaRequest.builder()
@@ -90,6 +112,11 @@ class VentaServiceTests {
         assertEquals("Usuario no válido o no autorizado", exception.getMessage());
     }
 
+    /**
+     * Test que comprueba que el método ventaEntradas de la clase VentaService lanza una excepción cuando la validación de la venta falla.
+     * Se simula el comportamiento de los mocks para que devuelvan los valores esperados.
+     * Se comprueba que se lanza una excepción con el mensaje esperado.
+     */
     @Test
     void ventaEntradasShouldThrowExceptionWhenEventoNotFound() {
         VentaRequest request = VentaRequest.builder()
@@ -108,6 +135,11 @@ class VentaServiceTests {
         assertEquals("Evento no encontrado", exception.getMessage());
     }
 
+    /**
+     * Test que comprueba que el método getVentasByUserEmail de la clase VentaService devuelve una lista vacía cuando no existen ventas.
+     * Se simula el comportamiento de los mocks para que devuelvan los valores esperados.
+     * Se comprueba que se devuelve una lista vacía.
+     */
     @Test
     void getVentasByUserEmailShouldReturnEmptyListWhenNoVentasExist() {
         String email = "nonexistent@example.com";
@@ -120,6 +152,11 @@ class VentaServiceTests {
         assertTrue(result.isEmpty());
     }
 
+    /**
+     * Test que comprueba que el método getVentasByUserEmail de la clase VentaService devuelve una lista de ventas cuando existen ventas.
+     * Se simula el comportamiento de los mocks para que devuelvan los valores esperados.
+     * Se comprueba que se devuelve una lista con las ventas esperadas.
+     */
     @Test
     void getVentasByUserEmailShouldReturnVentasWhenExists() {
         String email = "test@example.com";
@@ -138,6 +175,12 @@ class VentaServiceTests {
         assertEquals(1, result.size());
         assertEquals(email, result.get(0).getUserEmail());
     }
+
+    /**
+     * Test que comprueba que el método validateVenta de la clase VentaService devuelve una lista vacía cuando la venta es válida.
+     * Se simula el comportamiento de los mocks para que devuelvan los valores esperados.
+     * Se comprueba que se devuelve una lista vacía.
+     */
     @Test
     void checkUsuarioClientConectWell() {
         Usuario usuario = new Usuario();

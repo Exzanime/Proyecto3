@@ -9,6 +9,10 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
+/**
+ * Clase que representa la respuesta de una peticion.
+ * @param <T> Tipo de dato del cuerpo de la respuesta.
+ */
 @Data
 @Builder
 @AllArgsConstructor

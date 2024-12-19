@@ -11,6 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
+/**
+ * Clase que implementa los tests de los métodos de la clase FeignClient.
+ * Se utilizan mocks para simular el comportamiento de la clase EventoClient.
+ */
 class FeignClientTests {
 
     @Mock
@@ -21,6 +25,9 @@ class FeignClientTests {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Test que comprueba que el método getEventoById de la clase EventoClient devuelve un evento válido.
+     */
     @Test
     void testGetEventoByIdReturnValidEvento() {
         Evento mockResponse = new Evento();

@@ -5,6 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clase que representa la peticion de venta.
+ * Contiene la informacion de la venta a realizar.
+ */
 @Data
 @Builder
 @AllArgsConstructor

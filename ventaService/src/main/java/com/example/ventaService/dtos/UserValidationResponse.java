@@ -6,6 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clase que representa la respuesta de la validacion de un usuario.
+ * Contiene la informacion del usuario validado, el password del usuario, y el token de la respuesta.
+ * @see UserValidationRequest
+ */
 @Data
 @Builder
 public class UserValidationResponse {

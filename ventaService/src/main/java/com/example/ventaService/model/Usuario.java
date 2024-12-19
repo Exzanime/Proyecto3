@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-//@Entity
+/**
+ * Clase que representa un objeto Usuario.
+ * Contiene la informacion de un usuario, como su nombre, apellido, email y fecha de nacimiento.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -8,6 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Interfaz que extiende de JpaRepository para realizar operaciones con la base de datos.
+ * Se encarga de gestionar las ventas.
+ */
 @Repository
 public interface VentaRepository extends JpaRepository<VentaEntity, Long> {
     @Query("SELECT v FROM VentaEntity v WHERE v.userEmail = ?1")

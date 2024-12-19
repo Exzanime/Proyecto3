@@ -6,7 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//@Entity
+/**
+ * Clase que representa un objeto Evento.
+ * Contiene la informacion de un evento, como su nombre, descripcion, genero, localidad, recinto, fecha, precio minimo y precio maximo.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

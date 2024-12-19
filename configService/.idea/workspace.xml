@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48b3099d-9b7a-4d13-b5a0-07767e7e8602" name="Changes" comment="" />
+    <list default="true" id="48b3099d-9b7a-4d13-b5a0-07767e7e8602" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/configService/ConfigServiceApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/configService/ConfigServiceApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/controller/VentaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/controller/VentaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/errors/EmailNoValitFormatException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/errors/EmailNoValitFormatException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/errors/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/errors/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/feignClient/BancoClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/feignClient/BancoClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/feignClient/EventoClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/feignClient/EventoClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/feignClient/PlataformaPagoClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/feignClient/UsuarioClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/feignClient/UsuarioClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/service/VentaServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/service/VentaServiceImpl.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -81,6 +91,7 @@
       <workItem from="1734446333946" duration="359000" />
       <workItem from="1734446743537" duration="611000" />
       <workItem from="1734505897160" duration="626000" />
+      <workItem from="1734622156536" duration="609000" />
     </task>
     <servers />
   </component>

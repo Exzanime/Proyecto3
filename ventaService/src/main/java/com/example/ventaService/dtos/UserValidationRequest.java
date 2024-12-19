@@ -6,6 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clase que representa la peticion de validacion de un usuario.
+ * Contiene la informacion del usuario a validar.
+ * @see UserValidationResponse
+ */
 @Data
 @Builder
 public class UserValidationRequest {

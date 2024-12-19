@@ -34,6 +34,11 @@ public class VentaServiceImpl implements VentaService{
     @Autowired
     private BancoClient bancoClient;
 
+    /**
+     * Método que convierte un objeto DtoVenta en un objeto VentaEntity
+     * @param dto Objeto DtoVenta
+     * @return Objeto VentaEntity
+     */
     private VentaEntity conversionDtoAVenta(DtoVenta dto) {
         if (dto == null) {
             throw new IllegalArgumentException("El DTO no puede ser un null.");
@@ -46,6 +51,11 @@ public class VentaServiceImpl implements VentaService{
                 .build();
     }
 
+    /**
+     * Método que convierte un objeto VentaEntity en un objeto DtoVenta
+     * @param venta Objeto VentaEntity
+     * @return Objeto DtoVenta
+     */
     private DtoVenta conversionVentaADto(VentaEntity venta) {
         if (venta == null) {
             throw new IllegalArgumentException("La entidad no puede ser un null.");
@@ -58,6 +68,11 @@ public class VentaServiceImpl implements VentaService{
                 .build();
     }
 
+    /**
+     * Método que realiza la venta de entradas para un evento
+     * @param ventaRequest Objeto VentaRequest con los datos de la venta
+     * @return Objeto VentaEntity con los datos de la venta
+     */
     public VentaEntity ventaEntradas(VentaRequest ventaRequest){
         UserValidationResponse usuarioValidado = bancoClient.validarUsuario("Grupo04", "AntoniosRules");
         if(usuarioValidado == null || usuarioValidado.getToken() == null){
@@ -92,6 +107,11 @@ public class VentaServiceImpl implements VentaService{
         return ventaRepository.save(venta);
     }
 
+    /**
+     * Método que devuelve las ventas realizadas por un usuario
+     * @param userEmail Email del usuario
+     * @return Lista de objetos DtoVenta
+     */
     @Override
     public List<DtoVenta> getVentasByUserEmail(String userEmail) {
         isValidateEmail(userEmail);
@@ -100,6 +120,11 @@ public class VentaServiceImpl implements VentaService{
                 .toList();
     }
 
+    /**
+     * Método que devuelve las ventas realizadas en una fecha concreta
+     * @param fecha Fecha en formato "yyyy-MM-dd"
+     * @return Lista de objetos DtoVenta
+     */
     @Override
     public List<DtoVenta> getVentasByFecha(String fecha) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -113,6 +138,11 @@ public class VentaServiceImpl implements VentaService{
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Método que valida los datos de una venta
+     * @param ventaRequest Objeto VentaRequest con los datos de la venta
+     * @return Lista de objetos ResponseMessage con los errores encontrados
+     */
     @Override
     public List<ResponseMessage> validateVenta(VentaRequest ventaRequest){
         List<ResponseMessage> errores = new ArrayList<>();
@@ -198,6 +228,12 @@ public class VentaServiceImpl implements VentaService{
         }
         return errores;
     }
+
+    /**
+     * Método que valida un email
+     * @param email Email a validar
+     * @throws EmailNoValitFormatException si el email no tiene el formato correcto
+     */
     @Override
     public void isValidateEmail(String email) {
         if (!(email.split("@").length == 2 && email.split("@")[1].split("\\.").length == 2)) {

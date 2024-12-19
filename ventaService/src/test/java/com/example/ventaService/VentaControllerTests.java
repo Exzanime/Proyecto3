@@ -23,6 +23,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * Clase que contiene los tests de la clase VentaController.
+ * Se encarga de realizar las pruebas unitarias de los métodos de la clase VentaController.
+ * Se utilizan mocks para simular el comportamiento de la clase VentaService.
+ * Se utilizan anotaciones de JUnit 5 para la ejecución de los tests.
+ * Se utilizan anotaciones de Mockito para la creación de mocks.
+ */
 @WebMvcTest(VentaController.class)
 public class VentaControllerTests {
 
@@ -35,6 +42,10 @@ public class VentaControllerTests {
         @MockitoBean
         private VentaService ventaService;
 
+        /**
+         * Test que comprueba que el método ventaEntradas de la clase VentaController devuelve un BadRequest cuando la validación falla.
+         * @throws Exception Excepción lanzada por el método perform.
+         */
         @Test
         void ventaEntradasShouldReturnBadRequestWhenValidationFails() throws Exception {
                 VentaRequest invalidRequest = VentaRequest.builder()
@@ -52,6 +63,10 @@ public class VentaControllerTests {
                         .andExpect(jsonPath("$.message").value("Error en la petición"));
         }
 
+        /**
+         * Test que comprueba que el método ventaEntradas de la clase VentaController devuelve un Created cuando la petición es válida.
+         * @throws Exception Excepción lanzada por el método perform.
+         */
         @Test
         void ventaEntradasShouldReturnCreatedWhenRequestIsValid() throws Exception {
                 VentaRequest validRequest = VentaRequest.builder()
@@ -85,7 +100,10 @@ public class VentaControllerTests {
                         .andExpect(jsonPath("$.message").value("Venta realizada"));
         }
 
-
+        /**
+         * Test que comprueba que el método ventaEntradas de la clase VentaController devuelve un BadRequest cuando la petición es inválida.
+         * @throws Exception Excepción lanzada por el método perform.
+         */
         @Test
         void getVentasByUserEmailShouldReturnNotFoundWhenNoVentas() throws Exception {
                 String email = "notfound@gmail.com";
@@ -98,6 +116,10 @@ public class VentaControllerTests {
                         .andExpect(jsonPath("$.message").value("No se han encontrado ventas"));
         }
 
+        /**
+         * Test que comprueba que el método ventaEntradas de la clase VentaController devuelve un Ok cuando se encuent
+         * @throws Exception Excepción lanzada por el método perform.
+         */
         @Test
         void getVentasByUserEmailShouldReturnOkWhenVentasFound() throws Exception {
                 String email = "example@gmail.com";

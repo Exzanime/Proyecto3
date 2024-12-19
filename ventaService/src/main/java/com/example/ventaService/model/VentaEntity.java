@@ -9,6 +9,11 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Clase que representa un objeto Venta.
+ * Contiene la informacion de una venta, como el id del usuario, el email del usuario, el id del evento, el nombre del evento, la fecha de compra y el precio.
+ * @see Usuario
+ */
 @Entity
 @Data
 @NoArgsConstructor

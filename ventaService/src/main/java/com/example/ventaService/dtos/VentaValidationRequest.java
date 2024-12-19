@@ -7,6 +7,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clase que representa la peticion de validacion de una venta.
+ * Contiene la informacion de la venta a validar.
+ * @see VentaValidationResponse
+ */
 @Builder
 @Data
 @AllArgsConstructor

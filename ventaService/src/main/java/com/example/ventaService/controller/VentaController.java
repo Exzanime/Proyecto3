@@ -16,12 +16,22 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * Controlador de la API REST de ventaService
+ * @autor Violeta,Nacho,Denis, Alejandro
+ * @version 1.0
+ */
 @RestController
 @RequestMapping("/venta")
 public class VentaController {
     @Autowired
     private VentaService ventaService;
 
+    /**
+     * Método que realiza la venta de entradas para un evento
+     * @param ventaRequest Objeto VentaRequest con los datos de la venta
+     * @return ResponseEntity con un mensaje de éxito o error
+     */
     @CircuitBreaker(name = "eventoCB", fallbackMethod = "fallBackVentaEntradas")
     @PostMapping("/compra")
     public ResponseEntity<?> ventaEntradas(@RequestBody VentaRequest ventaRequest){
@@ -59,6 +69,12 @@ public class VentaController {
                     .build());
         }
     }
+
+    /**
+     * Método que devuelve las ventas realizadas por un usuario
+     * @param email Email del usuario
+     * @return ResponseEntity con un mensaje de éxito o error
+     */
     @GetMapping("/entradas/{email}")
     public ResponseEntity<ResponseMessage> getVentasByUserEmail(@PathVariable String email){
         List<DtoVenta> ventas = ventaService.getVentasByUserEmail(email);
@@ -83,6 +99,12 @@ public class VentaController {
         }
     }
 
+    /**
+     * Método que se ejecuta en caso de fallo en la conexión con el servicio de eventos
+     * @param ventaRequest Objeto VentaRequest con los datos de la venta
+     * @param e Excepción lanzada
+     * @return ResponseEntity con un mensaje de error
+     */
     private ResponseEntity<?> fallBackVentaEntradas(@RequestBody VentaRequest ventaRequest, RuntimeException e){
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(ResponseMessage.builder()
                 .message("Error de conexión con el servicio, no se ha podido conectar con la base de datos de eventos, intentelo mas tarde")
@@ -94,6 +116,11 @@ public class VentaController {
                 .build());
     }
 
+    /**
+     * Método que devuelve las ventas realizadas en una fecha concreta
+     * @param fecha Fecha en formato dd-MM-yyyy
+     * @return ResponseEntity con un mensaje de éxito o error
+     */
     @GetMapping("/entradas/fecha/{fecha}")
     public ResponseEntity<?> getVentasByFecha(@PathVariable String fecha){
         List<DtoVenta> ventas = ventaService.getVentasByFecha(fecha);

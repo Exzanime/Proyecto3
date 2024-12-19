@@ -5,6 +5,12 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * Clase que representa la respuesta de la validacion de una venta.
+ * Contiene la informacion de la venta validada, el timestamp de la respuesta, el status de la respuesta,
+ * el error en caso de que haya ocurrido alguno, el mensaje de la respuesta, y la informacion adicional.
+ * @see VentaValidationRequest
+ */
 @Data
 public class VentaValidationResponse {
     @JsonProperty("timestamp")

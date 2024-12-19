@@ -12,6 +12,7 @@ import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -200,8 +201,11 @@ public class VentaServiceImpl implements VentaService{
 
     @Override
     public List<DtoVenta> getVentasByFecha(String fecha) {
-        LocalDateTime inicio = LocalDateTime.parse(fecha + "T00:00:00");
-        LocalDateTime fin = LocalDateTime.parse(fecha + "T23:59:59");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(fecha, formatter);
+
+        LocalDateTime inicio = localDate.atStartOfDay();
+        LocalDateTime fin = localDate.plusDays(1).atStartOfDay().minusNanos(1);
         return ventaRepository.findByFechaCompraBetween(inicio, fin)
                 .stream()
                 .map(this::conversionVentaADto)

@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48b3099d-9b7a-4d13-b5a0-07767e7e8602" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/dtos/DtoTarjeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/dtos/DtoTarjeta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/dtos/VentaRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/dtos/VentaRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/feignClient/UsuarioClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/main/java/com/example/ventaService/feignClient/UsuarioClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ventaService/src/test/java/com/example/ventaService/VentaControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/test/java/com/example/ventaService/VentaControllerTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ventaService/src/test/java/com/example/ventaService/VentaServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/test/java/com/example/ventaService/VentaServiceApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ventaService/src/test/java/com/example/ventaService/VentaServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ventaService/src/test/java/com/example/ventaService/VentaServiceTests.java" afterDir="false" />
-    </list>
+    <list default="true" id="48b3099d-9b7a-4d13-b5a0-07767e7e8602" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

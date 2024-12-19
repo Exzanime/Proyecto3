@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DtoTarjeta {
-    private String nombreTitular;
-    private String numero;
-    private String mesCaducidad;
-    private String yearCaducidad;
-    private String cvv;
+public class ValidFormatForVentaRequest {
+    VentaRequest ventaRequest;
+    @Builder.Default
+    String message = "Valid format for VentaRequest";
+
 }

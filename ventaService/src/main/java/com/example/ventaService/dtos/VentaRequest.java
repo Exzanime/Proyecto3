@@ -14,6 +14,5 @@ public class VentaRequest {
     private Long usuarioId;
     private Long eventoId;
     private String userEmail;
-    private String nombreEvento;
     private double precio;
 }

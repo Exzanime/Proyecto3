@@ -1,6 +1,5 @@
 package com.example.ventaService.controller;
 
-import com.example.ventaService.dtos.DtoTarjeta;
 import com.example.ventaService.dtos.VentaRequest;
 import com.example.ventaService.model.VentaEntity;
 import com.example.ventaService.dtos.DtoVenta;
@@ -37,13 +36,19 @@ public class VentaController {
                     .body(errores)
                     .build());
         }else {
-            VentaEntity venta = ventaService.ventaEntradas(ventaRequest.getUserEmail(),ventaRequest.getEventoId(),DtoTarjeta.builder()
-                    .numero(ventaRequest.getNumero())
-                    .nombreTitular(ventaRequest.getNombreTitular())
-                    .mesCaducidad(ventaRequest.getMesCaducidad())
-                    .yearCaducidad(ventaRequest.getYearCaducidad())
-                    .cvv(ventaRequest.getCvv())
-                    .build());
+            VentaEntity venta = ventaService.ventaEntradas(
+                    VentaRequest.builder()
+                            .userEmail(ventaRequest.getUserEmail())
+                            .eventoId(ventaRequest.getEventoId())
+                            .numero(ventaRequest.getNumero())
+                            .precio(ventaRequest.getPrecio())
+                            .cvv(ventaRequest.getCvv())
+                            .yearCaducidad(ventaRequest.getYearCaducidad())
+                            .usuarioId(ventaRequest.getUsuarioId())
+                            .mesCaducidad(ventaRequest.getMesCaducidad())
+                            .nombreTitular(ventaRequest.getNombreTitular())
+                            .build()
+            );
             return ResponseEntity.status(HttpStatus.CREATED).body(ResponseMessage.builder()
                     .message("Venta realizada")
                     .cause("La venta realizada el "+venta.getFechaCompra()+" para el evento "+venta.getEventoId()+" ha sido registrada correctamente")
@@ -54,30 +59,6 @@ public class VentaController {
                     .build());
         }
     }
-    @PostMapping("/registro")
-    ResponseEntity<?> registrarUsuario(@RequestBody DtoVenta dtoVenta) {
-        List<ResponseMessage> errores = ventaService.validatePost(dtoVenta);
-        if (!errores.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseMessage.builder()
-                    .message("Error en la petición")
-                    .cause("La petición no es válida")
-                    .status(HttpStatus.BAD_REQUEST)
-                    .code(HttpStatus.BAD_REQUEST.value())
-                    .date(LocalDateTime.now())
-                    .body(errores)
-                    .build());
-        }else {
-            return ResponseEntity.status(HttpStatus.CREATED).body(ResponseMessage.builder()
-                    .message("Venta registrada")
-                    .cause("La venta realizada el "+dtoVenta.getFechaCompra()+" para el evento "+dtoVenta.getNombreEvento()+" ha sido registrada correctamente")
-                    .status(HttpStatus.CREATED)
-                    .code(HttpStatus.CREATED.value())
-                    .date(LocalDateTime.now())
-                    .body(ventaService.saveVenta(dtoVenta))
-                    .build());
-        }
-    }
-
     @GetMapping("/entradas/{email}")
     public ResponseMessage getVentasByUserEmail(@PathVariable String email){
         List<DtoVenta> ventas = ventaService.getVentasByUserEmail(email);

@@ -42,5 +42,5 @@ public class ResponseMessage<T> {
         this.code = status.value();
         this.date = date;
     }
-    
+
 }

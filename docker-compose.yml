@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  # Eureka Server
+  eurekaService:
+    image: my-local-registry/eureka-service:latest
+    networks:
+      - microservices-net
+
+  # Config Server
+  configService:
+    image: my-local-registry/config-server:latest
+    networks:
+      - microservices-net
+
+  # EventoService
+  eventoService:
+    image: my-local-registry/evento-service:latest
+    networks:
+      - microservices-net
+
+  # UsuarioService
+  usuarioService:
+    image: my-local-registry/usuario-service:latest
+    networks:
+      - microservices-net
+
+  # Gateway
+  gatewayService:
+    image: my-local-registry/gateway:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - microservices-net
+
+networks:
+  microservices-net:
+    driver: bridge

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.example.ventaService.dtos.ResponseMessage;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
@@ -81,7 +82,7 @@ public class GlobalExceptionHandler {
                             .cause("Error en la conexión con el servicio externo")
                             .status(HttpStatus.INTERNAL_SERVER_ERROR)
                             .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                            .date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                            .date(LocalDateTime.now())
                             .build());
         } else if (e.getMessage().contains("400.0002")) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -90,7 +91,7 @@ public class GlobalExceptionHandler {
                             .cause("No se ha encontrado el usuario")
                             .status(HttpStatus.INTERNAL_SERVER_ERROR)
                             .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                            .date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                            .date(LocalDateTime.now())
                             .build());
         } else if (e.getMessage().contains("400.0001")) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -99,7 +100,7 @@ public class GlobalExceptionHandler {
                             .cause("El usuario no tiene fondos suficientes")
                             .status(HttpStatus.INTERNAL_SERVER_ERROR)
                             .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                            .date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                            .date(LocalDateTime.now())
                             .build());
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -108,7 +109,7 @@ public class GlobalExceptionHandler {
                         .cause(e.getMessage())
                         .status(HttpStatus.INTERNAL_SERVER_ERROR)
                         .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                        .date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                        .date(LocalDateTime.now())
                         .build());
     }
     @ExceptionHandler(EmailNoValitFormatException.class)
@@ -119,7 +120,7 @@ public class GlobalExceptionHandler {
                         .cause("El email no tiene un formato válido")
                         .status(HttpStatus.BAD_REQUEST)
                         .code(HttpStatus.BAD_REQUEST.value())
-                        .date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                        .date(LocalDateTime.now()
                         )
                         .body(e.getMessage())
                         .build());

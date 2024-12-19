@@ -104,7 +104,7 @@ public class VentaController {
                     .cause("No se han encontrado ventas para la fecha proporcionada: " + fecha)
                     .status(HttpStatus.NOT_FOUND)
                     .code(HttpStatus.NOT_FOUND.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .body(ventas)
                     .build()
             );
@@ -115,7 +115,7 @@ public class VentaController {
                     .cause("Se han encontrado "+ventas.size()+" ventas para la fecha: " + fecha)
                     .status(HttpStatus.OK)
                     .code(HttpStatus.OK.value())
-                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .date(LocalDateTime.now())
                     .body(ventas)
                     .build()
             );

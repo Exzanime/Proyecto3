@@ -1,25 +1,28 @@
 package com.example.ventaService;
-
 import com.example.ventaService.feignClient.EventoClient;
 import com.example.ventaService.model.Evento;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
-public class FeignClientTests {
-
+class FeignClientTests {
 
     @Mock
-    private EventoClient mockEventoClient; // Mock del cliente para simular respuestas
+    private EventoClient eventoClient;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
-    public void testGetEventoByIdReturnValidEvento() {
-
+    void testGetEventoByIdReturnValidEvento() {
         Evento mockResponse = new Evento();
         mockResponse.setId(1L);
         mockResponse.setNombre("Concierto de Rock");
@@ -30,16 +33,14 @@ public class FeignClientTests {
         mockResponse.setFecha("2024-12-31T21:00:00");
         mockResponse.setPrecioMin(30.50);
         mockResponse.setPrecioMax(150.75);
-        when(mockEventoClient.getEventoById(anyLong())).thenReturn(mockResponse);
 
+        when(eventoClient.getEventoById(anyLong())).thenReturn(mockResponse);
 
-        Evento actualResponse = mockEventoClient.getEventoById(1L);
-
+        Evento actualResponse = eventoClient.getEventoById(1L);
 
         assertEquals(mockResponse.getId(), actualResponse.getId());
         assertEquals(mockResponse.getNombre(), actualResponse.getNombre());
         assertEquals(mockResponse.getFecha(), actualResponse.getFecha());
+        assertEquals(mockResponse.getPrecioMin(), actualResponse.getPrecioMin());
     }
-
-
 }

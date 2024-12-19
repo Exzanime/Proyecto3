@@ -3,8 +3,6 @@ package com.example.ventaService;
 import com.example.ventaService.controller.VentaController;
 import com.example.ventaService.dtos.VentaRequest;
 import com.example.ventaService.service.VentaService;
-import com.example.ventaService.service.VentaServiceImpl;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +34,6 @@ public class VentaControllerTests {
                     .mesCaducidad(String.valueOf(12))
                     .yearCaducidad(String.valueOf(2025))
                     .build();
-
             mockMvc.perform(post("/venta/compra")
                             .contentType("application/json")
                             .content(objectMapper.writeValueAsString(ventaRequest)))

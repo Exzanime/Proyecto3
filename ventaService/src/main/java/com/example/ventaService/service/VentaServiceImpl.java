@@ -73,7 +73,7 @@ public class VentaServiceImpl implements VentaService{
         if(response == null){
             throw new RuntimeException("Tarjeta no válida");
         }
-        Evento evento = eventoClient.getEventoById(idEvento);
+        Evento evento = eventoClient.getEventoById(ventaRequest.getEventoId());
         if(evento == null){
             throw new RuntimeException("Evento no encontrado");
         }

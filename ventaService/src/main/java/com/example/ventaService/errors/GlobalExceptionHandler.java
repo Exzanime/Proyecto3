@@ -64,13 +64,13 @@ public class GlobalExceptionHandler {
                 .body(new ResponseMessage<>("Método "+e.getMethod()+" no permitido", e.getMessage() , HttpStatus.METHOD_NOT_ALLOWED, fecha.format(formatoEspañol)));
     }
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<ResponseMessage> handleException(Exception e) {
-        String errorMessage = "Hubo un problema al procesar la solicitud. Inténtalo de nuevo más tarde.";
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ResponseMessage<>("Error interno. "+errorMessage , e.getMessage(), HttpStatus.NOT_FOUND, LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
-    }
+//    @ExceptionHandler(Exception.class)
+//    @ResponseStatus(HttpStatus.NOT_FOUND)
+//    public ResponseEntity<ResponseMessage> handleException(Exception e) {
+//        String errorMessage = "Hubo un problema al procesar la solicitud. Inténtalo de nuevo más tarde.";
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                .body(new ResponseMessage<>("Error interno. "+errorMessage , e.getMessage(), HttpStatus.NOT_FOUND, LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+//    }
 
     @ExceptionHandler(FeignException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -103,12 +103,12 @@ public class GlobalExceptionHandler {
                             .date(LocalDateTime.now())
                             .build());
         }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
                 .body(ResponseMessage.builder()
                         .message("Error interno")
                         .cause(e.getMessage())
-                        .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                        .status(HttpStatus.SERVICE_UNAVAILABLE)
+                        .code(HttpStatus.SERVICE_UNAVAILABLE.value())
                         .date(LocalDateTime.now())
                         .build());
     }

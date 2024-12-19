@@ -25,6 +25,9 @@ public class UserValidationResponse {
         this.token = token;
     }
 
+    public UserValidationResponse(String validToken) {
+    }
+
     public String getUser() {
         return user;
     }

@@ -60,24 +60,26 @@ public class VentaController {
         }
     }
     @GetMapping("/entradas/{email}")
-    public ResponseMessage getVentasByUserEmail(@PathVariable String email){
+    public ResponseEntity<ResponseMessage> getVentasByUserEmail(@PathVariable String email){
         List<DtoVenta> ventas = ventaService.getVentasByUserEmail(email);
         if(ventas.isEmpty()){
-            return ResponseMessage.builder()
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseMessage.builder()
                     .message("No se han encontrado ventas")
-                    .cause("No se han encontrado ventas para el usuario con email: "+email)
+                    .cause("No se han encontrado ventas para el usuario con email "+email)
                     .status(HttpStatus.NOT_FOUND)
+                    .code(HttpStatus.NOT_FOUND.value())
                     .date(LocalDateTime.now())
-                    .build();
+                    .body(ventas)
+                    .build());
         }else {
-            return ResponseMessage.builder()
+            return ResponseEntity.ok(ResponseMessage.builder()
                     .message("Ventas encontradas")
-                    .cause("Se han encontrado "+ventas.size()+" ventas para el usuario con email: "+email)
+                    .cause("Se han encontrado ventas para el usuario con email "+email)
                     .status(HttpStatus.OK)
                     .code(HttpStatus.OK.value())
                     .date(LocalDateTime.now())
                     .body(ventas)
-                    .build();
+                    .build());
         }
     }
 

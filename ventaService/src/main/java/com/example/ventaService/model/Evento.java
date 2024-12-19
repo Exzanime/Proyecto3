@@ -28,4 +28,7 @@ public class Evento {
     double precioMin;
 
     double precioMax;
+
+    public Evento(long l, String testEvent, double v) {
+    }
 }

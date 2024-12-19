@@ -23,6 +23,10 @@ public class VentaValidationResponse {
     public VentaValidationResponse(String s, String success, Object o, Object o1, Object o2, String infoAdicional) {
     }
 
+    public VentaValidationResponse() {
+
+    }
+
     public String getTimestamp() {
         return timestamp;
     }

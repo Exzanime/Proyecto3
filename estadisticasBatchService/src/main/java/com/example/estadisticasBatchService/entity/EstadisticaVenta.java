@@ -16,6 +16,6 @@ public class EstadisticaVenta {
     private Long id;
 
     private LocalDate fecha;
+    private String nombreEvento;
     private double mediaPrecio;
-    private Long eventoId;
 }

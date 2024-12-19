@@ -12,4 +12,6 @@ public interface VentaService {
 
     List<ResponseMessage> validateVenta(VentaRequest ventaRequest);
     public void isValidateEmail(String email);
+
+    List<DtoVenta> getVentasByFecha(String fecha);
 }

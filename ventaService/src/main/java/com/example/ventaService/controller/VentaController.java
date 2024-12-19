@@ -93,4 +93,32 @@ public class VentaController {
                //.body(e.getMessage())
                 .build());
     }
+
+    @GetMapping("/entradas/fecha/{fecha}")
+    public ResponseEntity<?> getVentasByFecha(@PathVariable String fecha){
+        List<DtoVenta> ventas = ventaService.getVentasByFecha(fecha);
+        if (ventas.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    ResponseMessage.builder()
+                    .message("No se han encontrado ventas")
+                    .cause("No se han encontrado ventas para la fecha proporcionada: " + fecha)
+                    .status(HttpStatus.NOT_FOUND)
+                    .code(HttpStatus.NOT_FOUND.value())
+                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .body(ventas)
+                    .build()
+            );
+        } else {
+            return ResponseEntity.ok(
+                 ResponseMessage.builder()
+                    .message("Ventas encontradas")
+                    .cause("Se han encontrado "+ventas.size()+" ventas para la fecha: " + fecha)
+                    .status(HttpStatus.OK)
+                    .code(HttpStatus.OK.value())
+                    .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                    .body(ventas)
+                    .build()
+            );
+        }
+    }
 }

@@ -9,13 +9,16 @@ import com.example.ventaService.model.Evento;
 import com.example.ventaService.model.VentaEntity;
 import com.example.ventaService.repository.VentaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Implementación de la interfaz VentaService
@@ -95,6 +98,19 @@ public class VentaServiceImpl implements VentaService{
         return ventaRepository.findVentasByUserEmail(userEmail).stream()
                 .map(this::conversionVentaADto)
                 .toList();
+    }
+
+    @Override
+    public List<DtoVenta> getVentasByFecha(String fecha) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(fecha, formatter);
+
+        LocalDateTime inicio = localDate.atStartOfDay();
+        LocalDateTime fin = localDate.plusDays(1).atStartOfDay().minusNanos(1);
+        return ventaRepository.findByFechaCompraBetween(inicio, fin)
+                .stream()
+                .map(this::conversionVentaADto)
+                .collect(Collectors.toList());
     }
 
     @Override
